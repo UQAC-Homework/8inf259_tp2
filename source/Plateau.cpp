@@ -47,48 +47,59 @@ bool Plateau::charger(const std::string& fichier)
 	bool processingLinks = false;
 
 	std::string line;
-	while (std::getline(stream, line))
+
+	try
 	{
-		line = trim(line);
-
-		if (line.empty())
-			continue;
-
-		if (line.at(0) == COMMENT_CHAR)
-			continue;
-
-		if (line == CITY_START)
+		while (std::getline(stream, line))
 		{
-			processingCities = true;
-			processingLinks = false;
-			continue;
-		}
+			line = trim(line);
 
-		if (line == LINKS_START)
-		{
-			processingCities = false;
-			processingLinks = true;
-			continue;
-		}
+			if (line.empty())
+				continue;
 
-		if (!processingCities && !processingLinks)
-		{
-			std::cerr << "Unhandled line: " << line << std::endl;
-			return false;
-		}
+			if (line.at(0) == COMMENT_CHAR)
+				continue;
 
-		assert((!processingCities && processingLinks) || (processingCities && !processingLinks));
+			if (line == CITY_START)
+			{
+				processingCities = true;
+				processingLinks = false;
+				continue;
+			}
 
-		if (processingCities)
-		{
-			Ville newCity = createCity(line);
-			newCities.insert({newCity.nom, newCity});
-		}
-		else
-		{
-			std::cout << "Lien: " << line << std::endl;
+			if (line == LINKS_START)
+			{
+				processingCities = false;
+				processingLinks = true;
+				continue;
+			}
+
+			if (!processingCities && !processingLinks)
+			{
+				std::cerr << "Unhandled line: " << line << std::endl;
+				return false;
+			}
+
+			assert((!processingCities && processingLinks) || (processingCities && !processingLinks));
+
+			if (processingCities)
+			{
+				Ville newCity = createCity(line);
+				newCities.insert({newCity.nom, newCity});
+			}
+			else
+			{
+				std::cout << "Lien: " << line << std::endl;
+			}
 		}
 	}
+	catch (const std::exception& ex)
+	{
+		std::cerr << ex.what() << std::endl;
+		stream.close();
+		return false;
+	}
+
 
 	stream.close();
 	return true;
