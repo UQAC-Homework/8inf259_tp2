@@ -1,0 +1,146 @@
+# Pandemic Iberia — Fichier plateau
+# 48 villes, 4 couleurs de maladie
+#
+# Maladies :
+# blue = Choléra — nord-ouest / Portugal
+# red = Typhus — nord / centre Espagne
+# black = Malaria — sud / Andalousie
+# yellow = Fièvre jaune — est / Méditerranée
+#
+# Format VILLES : nom;couleur;port (port = 1 si ville portuaire, 0 sinon)
+# Format LIENS : ville1;ville2 (bidirectionnel)
+VILLES
+La Corogne;blue;1
+Saint-Jacques-De-Compostelle;blue;0
+Vigo;blue;1
+Orense;blue;0
+Braga;blue;0
+Porto;blue;1
+Salamanque;blue;0
+Coimbra;blue;0
+Évora;blue;0
+Albufeira;blue;1
+Lisbonne;blue;1
+Caceres;blue;0
+Tolède;black;0
+Badajoz;black;0
+Huelva;black;1
+Cadix;black;1
+Séville;black;0
+Cordoue;black;0
+Gibraltar;black;1
+Malaga;black;1
+Jaén;black;0
+Ciudad Real;black;0
+Grenade;black;0
+Alméria;black;1
+Saint-Sébastien;red;1
+Pampelune;red;0
+Huesca;red;0
+Bilbao;red;0
+Vitoria-Gasteiz;red;0
+Soria;red;0
+Madrid;red;0
+Valladolid;red;0
+Burgos;red;0
+Santander;red;1
+Leon;red;0
+Gijon;red;1
+Andore-La-Vieille;yellow;0
+Gérone;yellow;0
+Barcelone;yellow;1
+Tarragone;yellow;1
+Saragosse;yellow;0
+Teruel;yellow;0
+Cuenca;yellow;0
+Albacete;yellow;0
+Valence;yellow;1
+Alicante;yellow;1
+Cartagène;yellow;1
+Palma de Majorque;yellow;1
+LIENS
+# === BLUE ===
+La Corogne;Saint-Jacques-De-Compostelle
+La Corogne;Gijon
+Saint-Jacques-De-Compostelle;Vigo
+Saint-Jacques-De-Compostelle;Orense
+Vigo;Orense
+Vigo;Braga
+Vigo;Porto
+Orense;Leon
+Braga;Porto
+Braga;Salamanque
+Porto;Coimbra
+Porto;Lisbonne
+Salamanque;Leon
+Salamanque;Valladolid
+Salamanque;Caceres
+Salamanque;Madrid
+Coimbra;Lisbonne
+Coimbra;Caceres
+Caceres;Tolède
+Caceres;Badajoz
+Lisbonne;Évora
+Lisbonne;Albufeira
+Évora;Huelva
+Évora;Badajoz
+Albufeira;Huelva
+# === RED ===
+Gijon;Santander
+Gijon;Leon
+Santander;Bilbao
+Santander;Valladolid
+Bilbao;Saint-Sébastien
+Bilbao;Vitoria-Gasteiz
+Saint-Sébastien;Pampelune
+Vitoria-Gasteiz;Pampelune
+Vitoria-Gasteiz;Burgos
+Vitoria-Gasteiz;Saragosse
+Pampelune;Huesca
+Burgos;Valladolid
+Burgos;Soria
+Soria;Saragosse
+Valladolid;Madrid
+Huesca;Saragosse
+Huesca;Andore-La-Vieille
+Madrid;Saragosse
+Madrid;Tolède
+Madrid;Ciudad Real
+Madrid;Cuenca
+# === YELLOW ===
+Andore-La-Vieille;Gérone
+Gérone;Barcelone
+Saragosse;Barcelone
+Saragosse;Teruel
+Barcelone;Tarragone
+Barcelone;Palma de Majorque
+Tarragone;Valence
+Tarragone;Teruel
+Teruel;Cuenca
+Cuenca;Valence
+Cuenca;Albacete
+Valence;Palma de Majorque
+Valence;Albacete
+Valence;Alicante
+Alicante;Cartagène
+Albacete;Cartagène
+Albacete;Ciudad Real
+Albacete;Jaén
+Cartagène;Alméria
+# === BLACK ===
+Tolède;Ciudad Real
+Badajoz;Ciudad Real
+Badajoz;Cordoue
+Cordoue;Ciudad Real
+Cordoue;Séville
+Cordoue;Malaga
+Cordoue;Jaén
+Jaén;Grenade
+Grenade;Malaga
+Grenade;Alméria
+Alméria;Malaga
+Malaga;Gibraltar
+Gibraltar;Cadix
+Cadix;Séville
+Huelva;Séville
+Malaga;Séville
