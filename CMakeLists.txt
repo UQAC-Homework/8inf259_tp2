@@ -7,4 +7,5 @@ add_executable(8inf259_tp2 main.cpp
         include/Ville.h
         include/Plateau.h
         source/Plateau.cpp
-        source/Ville.cpp)
+        source/Ville.cpp
+        include/string_utils.h)
