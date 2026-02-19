@@ -8,6 +8,7 @@
 #include "../include/string_utils.h"
 
 #define COMMENT_CHAR '#'
+#define DIVIDER_CHAR ';'
 #define CITY_START "VILLES"
 #define LINKS_START "LIENS"
 
@@ -71,7 +72,14 @@ bool Plateau::charger(const std::string& fichier)
 				return false;
 			}
 			
+			const std::string& name = tokens.at(0);
+			const std::string& color = tokens.at(1);
+			const std::string& isPort = tokens.at(2);
+
 			std::cout << "Ville: " << line << std::endl;
+			std::cout << "\t" << name << std::endl;
+			std::cout << "\t" << color << std::endl;
+			std::cout << "\t" << isPort << std::endl;
 		}
 		else
 		{
