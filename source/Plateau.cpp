@@ -26,6 +26,7 @@ bool Plateau::charger(const std::string& fichier)
 
 	std::ifstream stream(fichier);
 
+	std::map<std::string, Ville> newCities;
 	bool processingCities = false;
 	bool processingLinks = false;
 
@@ -78,10 +79,7 @@ bool Plateau::charger(const std::string& fichier)
 
 			Ville newCity(name, color, isPort == "1");
 
-			std::cout << "Ville: " << line << std::endl;
-			std::cout << "\t" << name << std::endl;
-			std::cout << "\t" << color << std::endl;
-			std::cout << "\t" << isPort << std::endl;
+			newCities.insert({name, newCity});
 		}
 		else
 		{
