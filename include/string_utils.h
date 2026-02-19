@@ -38,4 +38,22 @@ inline std::string trim(const std::string& str)
 	return trim_left(trim_right(str));
 }
 
+// From: https://stackoverflow.com/a/46931770 (Modified)
+inline std::vector<std::string> split(const std::string& s, const char delimiter)
+{
+	size_t pos_start = 0;
+	size_t pos_end = 0;
+	std::vector<std::string> res;
+
+	while ((pos_end = s.find(delimiter, pos_start)) != std::string::npos)
+	{
+		std::string token = s.substr(pos_start, pos_end - pos_start);
+		pos_start = pos_end + 1;
+		res.push_back(token);
+	}
+
+	res.push_back(s.substr(pos_start));
+	return res;
+}
+
 #endif //INC_8INF259_TP2_STRING_UTILS_H
