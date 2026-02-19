@@ -43,13 +43,13 @@ bool Plateau::charger(const std::string& fichier)
 	std::ifstream stream(fichier);
 
 	std::map<std::string, Ville> newCities;
-	bool processingCities = false;
-	bool processingLinks = false;
-
-	std::string line;
 
 	try
 	{
+		bool processingCities = false;
+		bool processingLinks = false;
+
+		std::string line;
 		while (std::getline(stream, line))
 		{
 			line = trim(line);
