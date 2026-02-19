@@ -1,6 +1,6 @@
 #include "../include/Plateau.h"
 
-#include <assert.h>
+#include <cassert>
 #include <filesystem>
 #include <fstream>
 #include <iostream>
