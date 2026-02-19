@@ -12,6 +12,22 @@
 #define CITY_START "VILLES"
 #define LINKS_START "LIENS"
 
+Ville createCity(const std::string& line)
+{
+	const std::vector<std::string> tokens = split(line, DIVIDER_CHAR);
+
+	if (tokens.size() < 3)
+		throw std::out_of_range("Line has missing tokens: " + line);
+
+	const std::string& name = tokens.at(0);
+	const std::string& color = tokens.at(1);
+	const std::string& isPort = tokens.at(2);
+
+	Ville city(name, color, isPort == "1");
+
+	return city;
+}
+
 Plateau::Plateau()
 {
 }
@@ -65,21 +81,8 @@ bool Plateau::charger(const std::string& fichier)
 
 		if (processingCities)
 		{
-			const std::vector<std::string> tokens = split(line, DIVIDER_CHAR);
-
-			if (tokens.size() < 3)
-			{
-				std::cerr << "Line has missing tokens: " << line << std::endl;
-				return false;
-			}
-
-			const std::string& name = tokens.at(0);
-			const std::string& color = tokens.at(1);
-			const std::string& isPort = tokens.at(2);
-
-			Ville newCity(name, color, isPort == "1");
-
-			newCities.insert({name, newCity});
+			Ville newCity = createCity(line);
+			newCities.insert({newCity.nom, newCity});
 		}
 		else
 		{
