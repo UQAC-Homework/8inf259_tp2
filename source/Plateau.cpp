@@ -1,5 +1,6 @@
 #include "../include/Plateau.h"
 
+#include <assert.h>
 #include <filesystem>
 #include <fstream>
 #include <iostream>
@@ -7,6 +8,8 @@
 #include "../include/string_utils.h"
 
 #define COMMENT_CHAR '#'
+#define CITY_START "VILLES"
+#define LINKS_START "LIENS"
 
 Plateau::Plateau()
 {
@@ -21,6 +24,9 @@ bool Plateau::charger(const std::string& fichier)
 	}
 
 	std::ifstream stream(fichier);
+
+	bool processingCities = false;
+	bool processingLinks = false;
 	
 	std::string line;
 	while (std::getline(stream, line))
@@ -32,8 +38,37 @@ bool Plateau::charger(const std::string& fichier)
 		
 		if (line.at(0) == COMMENT_CHAR)
 			continue;
+		
+		if (line == CITY_START)
+		{
+			processingCities = true;
+			processingLinks = false;
+			continue;
+		}
+		
+		if (line == LINKS_START)
+		{
+			processingCities = false;
+			processingLinks = true;
+			continue;
+		}
+		
+		if (!processingCities && !processingLinks)
+		{
+			std::cerr << "Unhandled line: " << line << std::endl;
+			return false;
+		}
 
-		std::cout << line << std::endl;
+		assert(!processingCities && !processingLinks));
+		
+		if (processingCities)
+		{
+			std::cout << "Ville: " << line << std::endl;
+		}
+		else if (processingLinks)
+		{
+			std::cout << "Lien: " << line << std::endl;
+		}
 	}
 	
 	stream.close();
