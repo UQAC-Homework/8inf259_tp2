@@ -11,8 +11,8 @@ public:
 	Map();
 	~Map();
 	
-	/// Inserts the given value at the given key
-	void insert(T key, U value);
+	/// Sets the given value at the given key
+	void set(T key, U value);
 	
 	/// Gets the value at the given key
 	U get(T key);
