@@ -76,6 +76,8 @@ bool Plateau::charger(const std::string& fichier)
 			const std::string& color = tokens.at(1);
 			const std::string& isPort = tokens.at(2);
 
+			Ville newCity(name, color, isPort == "1");
+
 			std::cout << "Ville: " << line << std::endl;
 			std::cout << "\t" << name << std::endl;
 			std::cout << "\t" << color << std::endl;
