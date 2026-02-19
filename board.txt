@@ -9,6 +9,7 @@
 #
 # Format VILLES : nom;couleur;port (port = 1 si ville portuaire, 0 sinon)
 # Format LIENS : ville1;ville2 (bidirectionnel)
+
 VILLES
 La Corogne;blue;1
 Saint-Jacques-De-Compostelle;blue;0
@@ -58,6 +59,7 @@ Valence;yellow;1
 Alicante;yellow;1
 Cartagène;yellow;1
 Palma de Majorque;yellow;1
+
 LIENS
 # === BLUE ===
 La Corogne;Saint-Jacques-De-Compostelle
