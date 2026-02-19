@@ -59,13 +59,13 @@ bool Plateau::charger(const std::string& fichier)
 			return false;
 		}
 
-		assert(!processingCities && !processingLinks));
+		assert((!processingCities && processingLinks) || (processingCities && !processingLinks));
 		
 		if (processingCities)
 		{
 			std::cout << "Ville: " << line << std::endl;
 		}
-		else if (processingLinks)
+		else
 		{
 			std::cout << "Lien: " << line << std::endl;
 		}
