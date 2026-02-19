@@ -75,10 +75,7 @@ bool Plateau::charger(const std::string& fichier)
 			}
 
 			if (!processingCities && !processingLinks)
-			{
-				std::cerr << "Unhandled line: " << line << std::endl;
-				return false;
-			}
+				throw std::logic_error("Unhandled line: " + line);
 
 			assert((!processingCities && processingLinks) || (processingCities && !processingLinks));
 
