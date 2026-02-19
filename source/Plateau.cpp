@@ -63,6 +63,14 @@ bool Plateau::charger(const std::string& fichier)
 		
 		if (processingCities)
 		{
+			const std::vector<std::string> tokens = split(line, DIVIDER_CHAR);
+			
+			if (tokens.size() < 3)
+			{
+				std::cerr << "Line has missing tokens: " << line << std::endl;
+				return false;
+			}
+			
 			std::cout << "Ville: " << line << std::endl;
 		}
 		else
