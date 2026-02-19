@@ -8,4 +8,6 @@ add_executable(8inf259_tp2 main.cpp
         include/Plateau.h
         source/Plateau.cpp
         source/Ville.cpp
-        include/string_utils.h)
+        include/string_utils.h
+        source/Graph.cpp
+        include/Graph.h)
