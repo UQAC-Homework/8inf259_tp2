@@ -167,7 +167,7 @@ void Plateau::menu()
 		std::cout << "> Choix : ";
 
 		int choice;
-		
+
 		if (!(std::cin >> choice))
 		{
 			std::cin.clear();
