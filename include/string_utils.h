@@ -1,11 +1,9 @@
-// From: https://gist.github.com/dedeexe/9080526
-// Modified
-
 #ifndef INC_8INF259_TP2_STRING_UTILS_H
 #define INC_8INF259_TP2_STRING_UTILS_H
 
 #include <string>
 
+// From: https://gist.github.com/dedeexe/9080526 (Modified)
 //
 //Left trim
 //
@@ -18,6 +16,7 @@ inline std::string trim_left(const std::string& str)
 	return str.substr(str.find_first_not_of(pattern));
 }
 
+// From: https://gist.github.com/dedeexe/9080526 (Modified)
 //
 //Right trim
 //
@@ -30,6 +29,7 @@ inline std::string trim_right(const std::string& str)
 	return str.substr(0, str.find_last_not_of(pattern) + 1);
 }
 
+// From: https://gist.github.com/dedeexe/9080526 (Modified)
 //
 //Left and Right trim
 //
