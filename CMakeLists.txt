@@ -5,4 +5,5 @@ set(CMAKE_CXX_STANDARD 20)
 
 add_executable(8inf259_tp2 main.cpp
         include/Ville.h
-        include/Plateau.h)
+        include/Plateau.h
+        source/Plateau.cpp)
