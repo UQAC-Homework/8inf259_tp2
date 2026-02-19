@@ -28,32 +28,32 @@ bool Plateau::charger(const std::string& fichier)
 
 	bool processingCities = false;
 	bool processingLinks = false;
-	
+
 	std::string line;
 	while (std::getline(stream, line))
 	{
 		line = trim(line);
-		
+
 		if (line.empty())
 			continue;
-		
+
 		if (line.at(0) == COMMENT_CHAR)
 			continue;
-		
+
 		if (line == CITY_START)
 		{
 			processingCities = true;
 			processingLinks = false;
 			continue;
 		}
-		
+
 		if (line == LINKS_START)
 		{
 			processingCities = false;
 			processingLinks = true;
 			continue;
 		}
-		
+
 		if (!processingCities && !processingLinks)
 		{
 			std::cerr << "Unhandled line: " << line << std::endl;
@@ -61,17 +61,17 @@ bool Plateau::charger(const std::string& fichier)
 		}
 
 		assert((!processingCities && processingLinks) || (processingCities && !processingLinks));
-		
+
 		if (processingCities)
 		{
 			const std::vector<std::string> tokens = split(line, DIVIDER_CHAR);
-			
+
 			if (tokens.size() < 3)
 			{
 				std::cerr << "Line has missing tokens: " << line << std::endl;
 				return false;
 			}
-			
+
 			const std::string& name = tokens.at(0);
 			const std::string& color = tokens.at(1);
 			const std::string& isPort = tokens.at(2);
@@ -86,7 +86,7 @@ bool Plateau::charger(const std::string& fichier)
 			std::cout << "Lien: " << line << std::endl;
 		}
 	}
-	
+
 	stream.close();
 	return true;
 }
