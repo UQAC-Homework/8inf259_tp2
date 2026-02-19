@@ -28,6 +28,19 @@ Ville createCity(const std::string& line)
 	return city;
 }
 
+std::tuple<std::string, std::string> createLink(const std::string& line)
+{
+	const std::vector<std::string> tokens = split(line, DIVIDER_CHAR);
+
+	if (tokens.size() < 2)
+		throw std::out_of_range("Line has missing tokens: " + line);
+
+	const std::string& origin = tokens.at(0);
+	const std::string& destination = tokens.at(1);
+
+	return {origin, destination};
+}
+
 Plateau::Plateau()
 {
 }
@@ -43,6 +56,7 @@ bool Plateau::charger(const std::string& fichier)
 	std::ifstream stream(fichier);
 
 	std::map<std::string, Ville> newCities;
+	std::map<std::string, std::vector<std::string>> newLinks;
 
 	try
 	{
@@ -86,7 +100,15 @@ bool Plateau::charger(const std::string& fichier)
 			}
 			else
 			{
-				std::cout << "Lien: " << line << std::endl;
+				const auto newLink = createLink(line);
+
+				const std::string origin = std::get<0>(newLink);
+				const std::string destination = std::get<1>(newLink);
+
+				if (newLinks.contains(origin))
+					newLinks.at(origin).push_back(destination);
+				else
+					newLinks.insert({origin, {destination}});
 			}
 		}
 	}
@@ -96,7 +118,6 @@ bool Plateau::charger(const std::string& fichier)
 		stream.close();
 		return false;
 	}
-
 
 	stream.close();
 	return true;
