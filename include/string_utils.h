@@ -27,7 +27,7 @@ inline std::string trim_right(const std::string& str)
 		return str;
 
 	const std::string pattern = " \f\n\r\t\v";
-	return str.substr(0,str.find_last_not_of(pattern) + 1);
+	return str.substr(0, str.find_last_not_of(pattern) + 1);
 }
 
 //
