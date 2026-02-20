@@ -14,6 +14,7 @@ class BaseGraph
 
 protected:
 	BaseGraph();
+	~BaseGraph();
 
 	/// Adds a new node onto the graph
 	int addNode(T element);

@@ -8,6 +8,9 @@ BaseGraph<T>::BaseGraph()
 }
 
 template <typename T>
+BaseGraph<T>::~BaseGraph() = default;
+
+template <typename T>
 int BaseGraph<T>::addNode(T element)
 {
 	const int id = this->nextId;
