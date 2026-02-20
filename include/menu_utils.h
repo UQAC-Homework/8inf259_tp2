@@ -1,7 +1,6 @@
 #ifndef INC_8INF259_TP2_MENU_UTILS_H
 #define INC_8INF259_TP2_MENU_UTILS_H
 #include <climits>
-#include <iostream>
 #include <tuple>
 #include <utility>
 #include <vector>
@@ -28,6 +27,7 @@ inline int askChoice(
 	output << "+======================================+" << std::endl;
 	output << "> Choix : ";
 
+	// ReSharper disable once CppTooWideScopeInitStatement
 	int choice = -1;
 
 	if (input >> choice)
