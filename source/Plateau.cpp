@@ -5,8 +5,8 @@
 #include <iostream>
 
 #include "../include/Graph.h"
-#include "../include/GraphParser.h"
 #include "../include/menu_utils.h"
+#include "../include/Graphs/CityGraph.h"
 
 Plateau::Plateau()
 {
@@ -26,7 +26,7 @@ bool Plateau::charger(const std::string& fichier)
 
 	try
 	{
-		graph = loadFromStream(stream);
+		graph = CityGraph::loadFromStream(stream);
 	}
 	catch (const std::exception& ex)
 	{
