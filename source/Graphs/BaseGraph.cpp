@@ -1,7 +1,5 @@
 #include "../../include/Graphs/BaseGraph.h"
 
-#include <stdexcept>
-
 BaseGraph::BaseGraph()
 {
 	this->nextId = 0;
