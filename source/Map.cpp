@@ -3,6 +3,7 @@
 #include "../include/Ville.h"
 
 #include <stdexcept>
+#include <utility>
 
 template <typename T, typename U>
 Map<T, U>::Map()
@@ -16,7 +17,7 @@ Map<T, U>::~Map() = default;
 template <typename T, typename U>
 void Map<T, U>::set(T key, U value)
 {
-	this->_internal[key] = value;
+	this->_internal[key] = std::move(value);
 }
 
 template <typename T, typename U>
@@ -35,3 +36,4 @@ bool Map<T, U>::contains(T key) const
 }
 
 template class Map<std::string, Graph::Node*>;
+template class Map<std::string, std::vector<std::string>>;
