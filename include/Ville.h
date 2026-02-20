@@ -20,6 +20,9 @@ public:
 
 	/// Cubes accumulated by color on the city
 	std::map<std::string, int> cubes;
+	
+	/// Adds a cube of the given color on the city
+	void addCube(const std::string& color);
 
 	/// Gets the amount of cubes stored on the city
 	[[nodiscard]] int totalCubes() const;
