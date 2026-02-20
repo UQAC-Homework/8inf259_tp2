@@ -31,3 +31,8 @@ void Graph::addLink(const std::string& from, const std::string& to)
 	else
 		this->links.set(from, {to});
 }
+
+size_t Graph::count() const
+{
+	return this->nodes.size();
+}

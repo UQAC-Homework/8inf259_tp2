@@ -24,6 +24,9 @@ public:
 
 	/// Adds a one-directional link between the nodes with the given names
 	void addLink(const std::string& from, const std::string& to);
+
+	/// Gets the number of nodes added
+	[[nodiscard]] size_t count() const;
 };
 
 
