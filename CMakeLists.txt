@@ -15,4 +15,6 @@ add_executable(8inf259_tp2 main.cpp
         source/Graphs/BaseGraph.cpp
         include/Graphs/BaseGraph.h
         source/Graphs/CityGraph.cpp
-        include/Graphs/CityGraph.h)
+        include/Graphs/CityGraph.h
+        source/Set.cpp
+        include/Set.h)
