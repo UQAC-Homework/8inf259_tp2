@@ -27,7 +27,7 @@ U Map<T, U>::get(T key)
 }
 
 template <typename T, typename U>
-bool Map<T, U>::contains(T key)
+bool Map<T, U>::contains(T key) const
 {
 	return this->_internal.contains(key);
 }

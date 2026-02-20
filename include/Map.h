@@ -18,7 +18,7 @@ public:
 	U get(T key);
 	
 	/// Checks if the given key is present
-	[[nodiscard]] bool contains(T key);
+	[[nodiscard]] bool contains(T key) const;
 };
 
 #endif //INC_8INF259_TP2_MAP_H
