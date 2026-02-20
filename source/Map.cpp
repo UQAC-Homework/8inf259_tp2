@@ -64,6 +64,7 @@ std::vector<T> Map<T, U>::keys() const
 	return values;
 }
 
+// TODO: Evaluate if replacing this by an iterator is useful
 template <typename T, typename U>
 std::vector<U> Map<T, U>::values() const
 {
