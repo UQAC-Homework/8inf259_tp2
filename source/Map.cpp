@@ -23,7 +23,7 @@ void Map<T, U>::set(T key, U value)
 }
 
 template <typename T, typename U>
-U& Map<T, U>::at(T key)
+U& Map<T, U>::at(const T& key)
 {
 	if (!this->contains(key))
 		throw std::out_of_range("Key was not found");
@@ -32,7 +32,16 @@ U& Map<T, U>::at(T key)
 }
 
 template <typename T, typename U>
-bool Map<T, U>::contains(T key) const
+const U& Map<T, U>::at(const T& key) const
+{
+	if (!this->contains(key))
+		throw std::out_of_range("Key was not found");
+
+	return this->_internal.at(key);
+}
+
+template <typename T, typename U>
+bool Map<T, U>::contains(const T& key) const
 {
 	return this->_internal.contains(key);
 }

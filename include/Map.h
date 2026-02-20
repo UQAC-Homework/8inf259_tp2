@@ -15,11 +15,14 @@ public:
 	void set(T key, U value);
 
 	/// Gets the value at the given key
-	[[nodiscard]] U& at(T key);
+	[[nodiscard]] U& at(const T& key);
+	
+	/// Gets the value at the given key
+	[[nodiscard]] const U& at(const T& key) const;
 
 	/// Checks if the given key is present
-	[[nodiscard]] bool contains(T key) const;
-	
+	[[nodiscard]] bool contains(const T& key) const;
+
 	/// Gets the amount of keys
 	[[nodiscard]] std::size_t size() const;
 };
