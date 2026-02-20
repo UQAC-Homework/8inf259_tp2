@@ -17,6 +17,11 @@ std::size_t CityGraph::getCityCount() const
 	return this->cities.size();
 }
 
+bool CityGraph::hasCity(const std::string& name) const
+{
+	return this->cities.contains(name);
+}
+
 CityGraph CityGraph::loadFromStream(std::ifstream& stream)
 {
 	// ReSharper disable CppTooWideScopeInitStatement

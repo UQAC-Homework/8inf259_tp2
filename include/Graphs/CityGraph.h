@@ -16,6 +16,9 @@ public:
 	/// Gets the amount of cities on the graph
 	[[nodiscard]] std::size_t getCityCount() const;
 
+	/// Checks if the graph has a city with the given name
+	[[nodiscard]] bool hasCity(const std::string& name) const;
+
 	/// Loads the graph from the given stream
 	static CityGraph loadFromStream(std::ifstream& stream);
 };
