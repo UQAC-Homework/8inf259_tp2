@@ -16,7 +16,7 @@ Map<T, U>::~Map() = default;
 template <typename T, typename U>
 void Map<T, U>::set(T key, U value)
 {
-	this->_internal[key] = std::move(value);
+	this->_internal[key] = value;
 }
 
 template <typename T, typename U>
