@@ -53,13 +53,25 @@ size_t Map<T, U>::size() const
 }
 
 template <typename T, typename U>
+std::vector<T> Map<T, U>::keys() const
+{
+	std::vector<T> values;
+	values.reserve(this->_internal.size());
+
+	for (const auto& [key, value] : this->_internal)
+		values.emplace_back(key);
+
+	return values;
+}
+
+template <typename T, typename U>
 std::vector<U> Map<T, U>::values() const
 {
 	std::vector<U> values;
 	values.reserve(this->_internal.size());
 
-	for (const auto& keyValue : this->_internal)
-		values.emplace_back(keyValue.second);
+	for (const auto& [key, value] : this->_internal)
+		values.emplace_back(value);
 
 	return values;
 }

@@ -27,6 +27,9 @@ public:
 	/// Gets the amount of keys
 	[[nodiscard]] std::size_t size() const;
 
+	/// Gets the keys used in the collection
+	[[nodiscard]] std::vector<T> keys() const;
+
 	/// Gets the values stored in the collection
 	[[nodiscard]] std::vector<U> values() const;
 };
