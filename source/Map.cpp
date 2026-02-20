@@ -1,4 +1,6 @@
 #include "../include/Map.h"
+#include "../include/Graph.h"
+#include "../include/Ville.h"
 
 #include <stdexcept>
 
@@ -31,3 +33,7 @@ bool Map<T, U>::contains(T key) const
 {
 	return this->_internal.contains(key);
 }
+
+template class Map<std::string, Ville>;
+template class Map<std::string, std::vector<std::string>>;
+template class Map<std::string_view, Graph::Node*>;
