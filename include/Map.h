@@ -15,7 +15,7 @@ public:
 	void set(T key, U value);
 	
 	/// Gets the value at the given key
-	U get(T key);
+	[[nodiscard]] U& at(T key);
 	
 	/// Checks if the given key is present
 	[[nodiscard]] bool contains(T key) const;

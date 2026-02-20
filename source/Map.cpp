@@ -18,12 +18,12 @@ void Map<T, U>::set(T key, U value)
 }
 
 template <typename T, typename U>
-U Map<T, U>::get(T key)
+U& Map<T, U>::at(T key)
 {
 	if (!this->contains(key))
 		throw std::out_of_range("Key was not found");
 
-	return this->_internal[key];
+	return this->_internal.at(key);
 }
 
 template <typename T, typename U>
