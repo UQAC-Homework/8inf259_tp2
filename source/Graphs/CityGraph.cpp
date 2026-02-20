@@ -10,7 +10,7 @@
 void CityGraph::addCity(const Ville& city)
 {
 	if (this->hasCity(city.nom))
-		throw std::runtime_error("A city with the name '" + city.nom + "' already exist.");
+		throw std::logic_error("A city with the name '" + city.nom + "' already exist.");
 
 	this->cities.set(city.nom, city);
 }
