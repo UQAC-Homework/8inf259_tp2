@@ -1,5 +1,7 @@
 #include "../include/Map.h"
-#include "../include/Graph.h"
+
+#include <set>
+
 #include "../include/Ville.h"
 
 #include <stdexcept>
@@ -41,6 +43,6 @@ size_t Map<T, U>::size() const
 	return this->_internal.size();
 }
 
-template class Map<std::string, Graph::Node*>;
-template class Map<std::string, Ville>;
-template class Map<std::string, std::vector<std::string>>;
+template class Map<std::string, int>;
+template class Map<int, std::set<int>>;
+template class Map<int, Ville>;

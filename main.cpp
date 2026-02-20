@@ -3,21 +3,22 @@
 #endif
 #include "include/Plateau.h"
 
-int main(const int argc, char* argv[]) {
+int main(const int argc, char* argv[])
+{
 #ifdef _WIN32
 	SetConsoleOutputCP(CP_UTF8);
 #endif
-
-	std::string file = "../board.txt";
 	
+	std::string file = "../board.txt";
+
 	if (argc > 1)
 		file = argv[1];
-	
+
 	Plateau plateau;
-	
+
 	if (!plateau.charger(file))
 		return 1;
-	
-	//plateau.menu();
+
+	plateau.menu();
 	return 0;
 }

@@ -9,9 +9,10 @@ add_executable(8inf259_tp2 main.cpp
         source/Plateau.cpp
         source/Ville.cpp
         include/string_utils.h
-        source/Graph.cpp
-        include/Graph.h
         source/Map.cpp
         include/Map.h
-        include/GraphParser.h
-        include/menu_utils.h)
+        include/menu_utils.h
+        source/Graphs/BaseGraph.cpp
+        include/Graphs/BaseGraph.h
+        source/Graphs/CityGraph.cpp
+        include/Graphs/CityGraph.h)
