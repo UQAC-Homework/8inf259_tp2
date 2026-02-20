@@ -22,7 +22,7 @@ bool Plateau::charger(const std::string& fichier)
 
 	std::ifstream stream(fichier);
 
-	Graph graph;
+	CityGraph graph;
 
 	try
 	{
@@ -35,7 +35,7 @@ bool Plateau::charger(const std::string& fichier)
 		return false;
 	}
 
-	std::cout << graph.count() << " ville(s) chargée(s)." << std::endl;
+	std::cout << graph.getCityCount() << " ville(s) chargée(s)." << std::endl;
 	stream.close();
 	return true;
 }

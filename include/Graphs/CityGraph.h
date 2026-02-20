@@ -9,6 +9,9 @@ class CityGraph : public BaseGraph
 {
 	Map<std::string, Ville> cities;
 public:
+	/// Gets the amount of cities on the graph
+	[[nodiscard]] std::size_t getCityCount() const;
+
 	/// Loads the graph from the given stream
 	static CityGraph loadFromStream(std::ifstream& stream);
 };

@@ -7,6 +7,11 @@
 #include "../../include/string_utils.h"
 #include "../../include/Ville.h"
 
+std::size_t CityGraph::getCityCount() const
+{
+	return this->cities.size();
+}
+
 CityGraph CityGraph::loadFromStream(std::ifstream& stream)
 {
 	// ReSharper disable CppTooWideScopeInitStatement
