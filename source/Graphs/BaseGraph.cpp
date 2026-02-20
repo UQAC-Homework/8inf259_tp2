@@ -22,8 +22,7 @@ int BaseGraph<T>::addNode(T element)
 template <typename T>
 void BaseGraph<T>::addEdge(const int from, const int to)
 {
-	if (this->edges.contains(from))
-		this->edges.at(from).emplace(to);
-	else
-		this->edges.set(from, {to});
+	if (!this->edges.contains(from))
+		this->edges.insert(from, {});
+	this->edges[from].insert(to);
 }

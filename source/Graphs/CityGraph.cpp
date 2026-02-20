@@ -10,7 +10,7 @@
 void CityGraph::addCity(const Ville& city)
 {
 	const int id = this->addNode(city);
-	this->nameToId.set(city.nom, id);
+	this->nameToId.insert(city.nom, id);
 }
 
 void CityGraph::addRoad(const std::string& from, const std::string& to)
@@ -30,7 +30,7 @@ void CityGraph::addRoad(const std::string& from, const std::string& to)
 
 std::size_t CityGraph::getCityCount() const
 {
-	return this->cities.size();
+	return this->nameToId.size();
 }
 
 CityGraph CityGraph::loadFromStream(std::ifstream& stream)
