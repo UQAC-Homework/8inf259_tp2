@@ -19,6 +19,9 @@ public:
 
 	/// Checks if the given key is present
 	[[nodiscard]] bool contains(T key) const;
+	
+	/// Gets the amount of keys
+	[[nodiscard]] std::size_t size() const;
 };
 
 #endif //INC_8INF259_TP2_MAP_H

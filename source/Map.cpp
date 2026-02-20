@@ -35,5 +35,11 @@ bool Map<T, U>::contains(T key) const
 	return this->_internal.contains(key);
 }
 
+template <typename T, typename U>
+size_t Map<T, U>::size() const
+{
+	return this->_internal.size();
+}
+
 template class Map<std::string, Graph::Node*>;
 template class Map<std::string, std::vector<std::string>>;
