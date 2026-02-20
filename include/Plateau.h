@@ -2,8 +2,12 @@
 
 #include <set>
 #include "Ville.h"
+#include "Graphs/CityGraph.h"
 
-class Plateau {
+class Plateau
+{
+	CityGraph _graph;
+
 public:
 	Plateau();
 
