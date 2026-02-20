@@ -43,4 +43,14 @@ const T& BaseGraph<T>::getNode(int id) const
 	return this->nodes.at(id);
 }
 
+template <typename T>
+const Set<int>& BaseGraph<T>::getNeighbors(const int node) const
+{
+	if (this->edges.contains(node))
+		return this->edges.at(node);
+
+	static const Set<int> emptySet;
+	return emptySet;
+}
+
 template class BaseGraph<Ville>;

@@ -24,6 +24,9 @@ protected:
 
 	/// Gets the node with the given id
 	const T& getNode(int id) const;
+
+	/// Gets the nodes sharing an edge with the given node
+	[[nodiscard]] const Set<int>& getNeighbors(int node) const;
 };
 
 
