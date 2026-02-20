@@ -2,6 +2,8 @@
 #define INC_8INF259_TP2_MAP_H
 #include <map>
 
+#include "Ville.h"
+
 template <typename T, typename U>
 class Map
 {
@@ -20,5 +22,8 @@ public:
 	/// Checks if the given key is present
 	[[nodiscard]] bool contains(T key) const;
 };
+
+template class Map<std::string, Ville>;
+template class Map<std::string, std::vector<std::string>>;
 
 #endif //INC_8INF259_TP2_MAP_H
