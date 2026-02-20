@@ -7,6 +7,11 @@
 #include "../../include/string_utils.h"
 #include "../../include/Ville.h"
 
+void CityGraph::addCity(const Ville& city)
+{
+	this->cities.set(city.nom, city);
+}
+
 std::size_t CityGraph::getCityCount() const
 {
 	return this->cities.size();
@@ -69,9 +74,9 @@ CityGraph CityGraph::loadFromStream(std::ifstream& stream)
 			const std::string& color = tokens.at(1);
 			const std::string& isPort = tokens.at(2);
 
-			Ville city(name, color, isPort == "1");
+			const Ville city(name, color, isPort == "1");
 
-			graph.addNode(city.nom);
+			graph.addCity(city);
 		}
 		else
 		{
@@ -83,8 +88,8 @@ CityGraph CityGraph::loadFromStream(std::ifstream& stream)
 			const std::string& origin = tokens.at(0);
 			const std::string& destination = tokens.at(1);
 
-			graph.addLink(origin, destination);
-			graph.addLink(destination, origin);
+			//graph.addLink(origin, destination);
+			//graph.addLink(destination, origin);
 		}
 	}
 

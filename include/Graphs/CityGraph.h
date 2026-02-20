@@ -8,6 +8,10 @@
 class CityGraph : public BaseGraph
 {
 	Map<std::string, Ville> cities;
+
+	/// Adds the given city to the graph
+	void addCity(const Ville& city);
+
 public:
 	/// Gets the amount of cities on the graph
 	[[nodiscard]] std::size_t getCityCount() const;
