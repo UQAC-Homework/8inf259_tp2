@@ -8,10 +8,13 @@
 class CityGraph : public BaseGraph
 {
 	Map<std::string, Ville> cities;
+	Map<std::string, std::vector<std::string>> roads;
 
 	/// Adds the given city to the graph
 	void addCity(const Ville& city);
 
+	/// Adds a one-directional road between two cities with the given names
+	void addRoad(const std::string& origin, const std::string& destination);
 public:
 	/// Gets the amount of cities on the graph
 	[[nodiscard]] std::size_t getCityCount() const;

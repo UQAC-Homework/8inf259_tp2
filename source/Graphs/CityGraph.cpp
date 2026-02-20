@@ -15,6 +15,20 @@ void CityGraph::addCity(const Ville& city)
 	this->cities.set(city.nom, city);
 }
 
+void CityGraph::addRoad(const std::string& origin, const std::string& destination)
+{
+	if (!this->hasCity(origin))
+		throw std::logic_error("No city is named '" + origin + "'.");
+
+	if (!this->hasCity(destination))
+		throw std::logic_error("No city is named '" + destination + "'.");
+
+	if (this->roads.contains(origin))
+		this->roads.at(origin).push_back(destination);
+	else
+		this->roads.set(origin, {destination});
+}
+
 std::size_t CityGraph::getCityCount() const
 {
 	return this->cities.size();
@@ -96,8 +110,8 @@ CityGraph CityGraph::loadFromStream(std::ifstream& stream)
 			const std::string& origin = tokens.at(0);
 			const std::string& destination = tokens.at(1);
 
-			//graph.addLink(origin, destination);
-			//graph.addLink(destination, origin);
+			graph.addRoad(origin, destination);
+			graph.addRoad(destination, origin);
 		}
 	}
 
