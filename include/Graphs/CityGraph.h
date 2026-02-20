@@ -19,6 +19,9 @@ public:
 	/// Gets the amount of cities on the graph
 	[[nodiscard]] std::size_t getCityCount() const;
 
+	/// Gets all the cities neighboring the given city 
+	[[nodiscard]] std::vector<std::string> getNeighbors(const std::string& city) const;
+
 	/// Loads the graph from the given stream
 	static CityGraph loadFromStream(std::ifstream& stream);
 };

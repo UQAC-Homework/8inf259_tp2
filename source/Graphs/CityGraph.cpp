@@ -33,6 +33,23 @@ std::size_t CityGraph::getCityCount() const
 	return this->nameToId.size();
 }
 
+std::vector<std::string> CityGraph::getNeighbors(const std::string& city) const
+{
+	if (!this->nameToId.contains(city))
+		throw std::logic_error("No such city name: " + city);
+
+	const int cityId = this->nameToId.at(city);
+	std::vector<std::string> neighbors;
+
+	for (const auto neighborId : BaseGraph::getNeighbors(cityId))
+	{
+		const Ville& neighbor = this->getNode(neighborId);
+		neighbors.push_back(neighbor.nom);
+	}
+
+	return neighbors;
+}
+
 CityGraph CityGraph::loadFromStream(std::ifstream& stream)
 {
 	// ReSharper disable CppTooWideScopeInitStatement
