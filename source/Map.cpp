@@ -42,4 +42,5 @@ size_t Map<T, U>::size() const
 }
 
 template class Map<std::string, Graph::Node*>;
+template class Map<std::string, Ville>;
 template class Map<std::string, std::vector<std::string>>;

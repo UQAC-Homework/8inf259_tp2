@@ -1,11 +1,13 @@
 #ifndef INC_8INF259_TP2_CITYGRAPH_H
 #define INC_8INF259_TP2_CITYGRAPH_H
 #include "BaseGraph.h"
+#include "../Map.h"
 #include "../Ville.h"
 
 /// Graph that represents a network of cities
 class CityGraph : public BaseGraph
 {
+	Map<std::string, Ville> cities;
 public:
 	/// Loads the graph from the given stream
 	static CityGraph loadFromStream(std::ifstream& stream);
