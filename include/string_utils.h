@@ -4,9 +4,6 @@
 #include <string>
 
 // From: https://gist.github.com/dedeexe/9080526 (Modified)
-//
-//Left trim
-//
 inline std::string trim_left(const std::string& str)
 {
 	if (str.empty())
@@ -17,9 +14,6 @@ inline std::string trim_left(const std::string& str)
 }
 
 // From: https://gist.github.com/dedeexe/9080526 (Modified)
-//
-//Right trim
-//
 inline std::string trim_right(const std::string& str)
 {
 	if (str.empty())
@@ -30,9 +24,6 @@ inline std::string trim_right(const std::string& str)
 }
 
 // From: https://gist.github.com/dedeexe/9080526 (Modified)
-//
-//Left and Right trim
-//
 inline std::string trim(const std::string& str)
 {
 	return trim_left(trim_right(str));

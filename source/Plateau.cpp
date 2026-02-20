@@ -4,9 +4,8 @@
 #include <fstream>
 #include <iostream>
 
-#include "../include/Graph.h"
-#include "../include/GraphParser.h"
 #include "../include/menu_utils.h"
+#include "../include/Graphs/CityGraph.h"
 
 Plateau::Plateau()
 {
@@ -22,11 +21,9 @@ bool Plateau::charger(const std::string& fichier)
 
 	std::ifstream stream(fichier);
 
-	Graph graph;
-
 	try
 	{
-		graph = loadFromStream(stream);
+		this->_graph = CityGraph::loadFromStream(stream);
 	}
 	catch (const std::exception& ex)
 	{
@@ -35,7 +32,7 @@ bool Plateau::charger(const std::string& fichier)
 		return false;
 	}
 
-	std::cout << graph.count() << " ville(s) chargée(s)." << std::endl;
+	std::cout << this->_graph.getCityCount() << " ville(s) chargée(s)." << std::endl;
 	stream.close();
 	return true;
 }
