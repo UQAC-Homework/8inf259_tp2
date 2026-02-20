@@ -6,6 +6,7 @@
 #include <fstream>
 #include <iostream>
 
+#include "../include/Map.h"
 #include "../include/string_utils.h"
 
 #define COMMENT_CHAR '#'
@@ -56,8 +57,8 @@ bool Plateau::charger(const std::string& fichier)
 
 	std::ifstream stream(fichier);
 
-	std::map<std::string, Ville> newCities;
-	std::map<std::string, std::vector<std::string>> newLinks;
+	Map<std::string, Ville> newCities;
+	Map<std::string, std::vector<std::string>> newLinks;
 
 	try
 	{
@@ -97,7 +98,7 @@ bool Plateau::charger(const std::string& fichier)
 			if (processingCities)
 			{
 				Ville newCity = createCity(line);
-				newCities.insert({newCity.nom, newCity});
+				newCities.set(newCity.nom, newCity);
 			}
 			else
 			{
@@ -109,7 +110,7 @@ bool Plateau::charger(const std::string& fichier)
 				if (newLinks.contains(origin))
 					newLinks.at(origin).push_back(destination);
 				else
-					newLinks.insert({origin, {destination}});
+					newLinks.set(origin, {destination});
 			}
 		}
 	}

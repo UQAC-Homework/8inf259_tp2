@@ -1,7 +1,8 @@
 #ifndef INC_8INF259_TP2_GRAPH_H
 #define INC_8INF259_TP2_GRAPH_H
-#include <map>
 #include <string>
+
+#include "Map.h"
 
 class Graph
 {
@@ -10,7 +11,7 @@ class Graph
 		std::string_view name;
 	};
 
-	std::map<std::string_view, Node*> nodes;
+	Map<std::string_view, Node*> nodes;
 
 public:
 	Graph();
