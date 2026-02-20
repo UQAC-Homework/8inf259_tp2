@@ -4,10 +4,8 @@
 #include "../include/string_utils.h"
 
 #include <cassert>
-#include <climits>
 #include <filesystem>
 #include <fstream>
-#include <iostream>
 
 #include "Graph.h"
 #include "Ville.h"
