@@ -1,7 +1,5 @@
 #include "../include/Map.h"
-
-#include <set>
-
+#include "../include/Set.h"
 #include "../include/Ville.h"
 
 #include <stdexcept>
@@ -17,27 +15,30 @@ template <typename T, typename U>
 Map<T, U>::~Map() = default;
 
 template <typename T, typename U>
-void Map<T, U>::set(T key, U value)
-{
-	this->_internal[key] = std::move(value);
-}
-
-template <typename T, typename U>
-U& Map<T, U>::at(const T& key)
-{
-	if (!this->contains(key))
-		throw std::out_of_range("Key was not found");
-
-	return this->_internal.at(key);
-}
-
-template <typename T, typename U>
 const U& Map<T, U>::at(const T& key) const
 {
 	if (!this->contains(key))
 		throw std::out_of_range("Key was not found");
 
 	return this->_internal.at(key);
+}
+
+template <typename T, typename U>
+void Map<T, U>::insert(const T& key, const U& value)
+{
+	this->_internal[key] = std::move(value);
+}
+
+template <typename T, typename U>
+void Map<T, U>::erase(const T& key)
+{
+	this->_internal.erase(key);
+}
+
+template <typename T, typename U>
+void Map<T, U>::clear()
+{
+	this->_internal.clear();
 }
 
 template <typename T, typename U>
@@ -53,30 +54,14 @@ size_t Map<T, U>::size() const
 }
 
 template <typename T, typename U>
-std::vector<T> Map<T, U>::keys() const
+U& Map<T, U>::operator[](const T& key)
 {
-	std::vector<T> values;
-	values.reserve(this->_internal.size());
+	if (!this->contains(key))
+		throw std::out_of_range("Key was not found");
 
-	for (const auto& [key, value] : this->_internal)
-		values.emplace_back(key);
-
-	return values;
-}
-
-// TODO: Evaluate if replacing this by an iterator is useful
-template <typename T, typename U>
-std::vector<U> Map<T, U>::values() const
-{
-	std::vector<U> values;
-	values.reserve(this->_internal.size());
-
-	for (const auto& [key, value] : this->_internal)
-		values.emplace_back(value);
-
-	return values;
+	return this->_internal[key];
 }
 
 template class Map<std::string, int>;
-template class Map<int, std::set<int>>;
+template class Map<int, Set<int>>;
 template class Map<int, Ville>;
