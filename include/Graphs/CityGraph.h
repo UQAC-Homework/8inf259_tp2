@@ -5,10 +5,17 @@
 #include "../Ville.h"
 
 /// Graph that represents a network of cities
-class CityGraph : public BaseGraph
+class CityGraph : public BaseGraph<Ville>
 {
-	Map<int, Ville> cities;
+	Map<std::string, int> nameToId;
+
 public:
+	/// Adds a city on the graph
+	void addCity(const Ville& city);
+
+	/// Adds a road between the cities with the given names
+	void addRoad(const std::string& from, const std::string& to);
+
 	/// Gets the amount of cities on the graph
 	[[nodiscard]] std::size_t getCityCount() const;
 

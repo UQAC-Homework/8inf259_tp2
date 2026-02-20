@@ -7,6 +7,27 @@
 #include "../../include/string_utils.h"
 #include "../../include/Ville.h"
 
+void CityGraph::addCity(const Ville& city)
+{
+	const int id = this->addNode(city);
+	this->nameToId.set(city.nom, id);
+}
+
+void CityGraph::addRoad(const std::string& from, const std::string& to)
+{
+	if (!this->nameToId.contains(from))
+		throw std::logic_error("No such city name: " + from);
+
+	if (!this->nameToId.contains(to))
+		throw std::logic_error("No such city name: " + to);
+
+	const int fromId = this->nameToId.at(from);
+	const int toId = this->nameToId.at(to);
+
+	this->addEdge(fromId, toId);
+	this->addEdge(toId, fromId);
+}
+
 std::size_t CityGraph::getCityCount() const
 {
 	return this->cities.size();
@@ -24,7 +45,6 @@ CityGraph CityGraph::loadFromStream(std::ifstream& stream)
 	// ReSharper restore CppTooWideScope
 
 	CityGraph graph;
-	Map<std::string, int> cityNameToId;
 
 	bool processingCities = false;
 	bool processingLinks = false;
@@ -71,9 +91,7 @@ CityGraph CityGraph::loadFromStream(std::ifstream& stream)
 			const std::string& isPort = tokens.at(2);
 
 			const Ville city(name, color, isPort == "1");
-			const int id = graph.addNode();
-			graph.cities.set(id, city);
-			cityNameToId.set(city.nom, id);
+			graph.addCity(city);
 		}
 		else
 		{
@@ -82,11 +100,10 @@ CityGraph CityGraph::loadFromStream(std::ifstream& stream)
 			if (tokens.size() < 2)
 				throw std::out_of_range("Line has missing tokens: " + line);
 
-			const int origin = cityNameToId.at(tokens.at(0));
-			const int destination = cityNameToId.at(tokens.at(1));
+			const std::string& origin = tokens.at(0);
+			const std::string& destination = tokens.at(1);
 
-			graph.addEdge(origin, destination);
-			graph.addEdge(destination, origin);
+			graph.addRoad(origin, destination);
 		}
 	}
 
