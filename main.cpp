@@ -18,6 +18,6 @@ int main(const int argc, char* argv[]) {
 	if (!plateau.charger(file))
 		return 1;
 	
-	plateau.menu();
+	//plateau.menu();
 	return 0;
 }
