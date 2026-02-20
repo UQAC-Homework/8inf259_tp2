@@ -35,3 +35,5 @@ bool Set<T>::contains(const T& value) const
 {
 	return this->_internal.contains(value);
 }
+
+template class Set<int>;
