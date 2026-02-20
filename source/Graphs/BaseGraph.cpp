@@ -1,5 +1,7 @@
 #include "../../include/Graphs/BaseGraph.h"
 
+#include <stdexcept>
+
 #include "../../include/Ville.h"
 
 
@@ -30,6 +32,15 @@ void BaseGraph<T>::addEdge(const int from, const int to)
 	if (!this->edges.contains(from))
 		this->edges.insert(from, {});
 	this->edges[from].insert(to);
+}
+
+template <typename T>
+const T& BaseGraph<T>::getNode(int id) const
+{
+	if (!this->nodes.contains(id))
+		throw std::out_of_range("Node with id '" + std::to_string(id) + "' does not exist.");
+
+	return this->nodes.at(id);
 }
 
 template class BaseGraph<Ville>;

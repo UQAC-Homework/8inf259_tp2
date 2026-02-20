@@ -21,6 +21,9 @@ protected:
 
 	/// Adds an edge between two nodes with the given ids
 	void addEdge(int from, int to);
+
+	/// Gets the node with the given id
+	const T& getNode(int id) const;
 };
 
 
