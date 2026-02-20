@@ -1,20 +1,26 @@
 #include "../../include/Graphs/BaseGraph.h"
 
-BaseGraph::BaseGraph()
+
+template <typename T>
+BaseGraph<T>::BaseGraph()
 {
 	this->nextId = 0;
 }
 
-int BaseGraph::addNode()
+template <typename T>
+int BaseGraph<T>::addNode(T element)
 {
 	const int id = this->nextId;
 
-	this->nextId++;
+	this->nodes.emplace(id, element);
+
+	++this->nextId;
 
 	return id;
 }
 
-void BaseGraph::addEdge(const int from, const int to)
+template <typename T>
+void BaseGraph<T>::addEdge(const int from, const int to)
 {
 	if (this->edges.contains(from))
 		this->edges.at(from).emplace(to);
