@@ -1,6 +1,7 @@
 #ifndef INC_8INF259_TP2_MAP_H
 #define INC_8INF259_TP2_MAP_H
 #include <map>
+#include <vector>
 
 template <typename T, typename U>
 class Map
@@ -25,6 +26,9 @@ public:
 
 	/// Gets the amount of keys
 	[[nodiscard]] std::size_t size() const;
+
+	/// Gets the values stored in the collection
+	[[nodiscard]] std::vector<U> values() const;
 };
 
 #endif //INC_8INF259_TP2_MAP_H
