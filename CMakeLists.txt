@@ -12,4 +12,5 @@ add_executable(8inf259_tp2 main.cpp
         source/Graph.cpp
         include/Graph.h
         source/Map.cpp
-        include/Map.h)
+        include/Map.h
+        include/GraphParser.h)
