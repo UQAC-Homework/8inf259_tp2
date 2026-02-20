@@ -36,4 +36,16 @@ bool Set<T>::contains(const T& value) const
 	return this->_internal.contains(value);
 }
 
+template <typename T>
+Set<T>::const_iterator Set<T>::begin() const
+{
+	return this->_internal.begin();
+}
+
+template <typename T>
+Set<T>::const_iterator Set<T>::end() const
+{
+	return this->_internal.end();
+}
+
 template class Set<int>;
