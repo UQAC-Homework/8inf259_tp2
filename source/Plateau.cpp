@@ -1,13 +1,12 @@
 #include "../include/Plateau.h"
 
-#include <cassert>
-#include <climits>
 #include <filesystem>
 #include <fstream>
 #include <iostream>
 
 #include "../include/Graph.h"
 #include "../include/GraphParser.h"
+#include "../include/menu_utils.h"
 
 Plateau::Plateau()
 {
@@ -68,29 +67,18 @@ void Plateau::afficherEtat()
 
 void Plateau::menu()
 {
+	const std::vector<std::tuple<int, std::string>> options = {
+		{1, "Placer 3 cubes sur une ville"},
+		{2, "Infecter une ville (+1 cube)"},
+		{3, "Placer un rail"},
+		{4, "Plus court chemin"},
+		{5, "Afficher l'etat du plateau"},
+		{0, "Quitter"},
+	};
+
 	while (true)
 	{
-		std::cout << "\n";
-		std::cout << "+======================================+" << std::endl;
-		std::cout << "|       PANDEMIC IBERIA -- MENU        |" << std::endl;
-		std::cout << "+======================================+" << std::endl;
-		std::cout << "| 1. Placer 3 cubes sur une ville      |" << std::endl;
-		std::cout << "| 2. Infecter une ville (+1 cube)      |" << std::endl;
-		std::cout << "| 3. Placer un rail                    |" << std::endl;
-		std::cout << "| 4. Plus court chemin                 |" << std::endl;
-		std::cout << "| 5. Afficher l'etat du plateau        |" << std::endl;
-		std::cout << "| 0. Quitter                           |" << std::endl;
-		std::cout << "+======================================+" << std::endl;
-		std::cout << "> Choix : ";
-
-		int choice;
-
-		if (!(std::cin >> choice))
-		{
-			std::cin.clear();
-			std::cin.ignore(INT_MAX, '\n');
-			continue;
-		}
+		const int choice = askChoice(std::cout, std::cin, options);
 
 		switch (choice)
 		{
