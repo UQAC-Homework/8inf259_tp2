@@ -8,7 +8,7 @@ int main(const int argc, char* argv[]) {
 	SetConsoleOutputCP(CP_UTF8);
 #endif
 
-	std::string file = "board.txt";
+	std::string file = "../board.txt";
 	
 	if (argc > 1)
 		file = argv[1];
@@ -18,6 +18,6 @@ int main(const int argc, char* argv[]) {
 	if (!plateau.charger(file))
 		return 1;
 	
-	plateau.menu();
+	//plateau.menu();
 	return 0;
 }
