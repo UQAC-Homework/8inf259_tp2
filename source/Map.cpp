@@ -34,6 +34,4 @@ bool Map<T, U>::contains(T key) const
 	return this->_internal.contains(key);
 }
 
-template class Map<std::string, Ville>;
-template class Map<std::string, std::vector<std::string>>;
-template class Map<std::string_view, Graph::Node*>;
+template class Map<std::string, Graph::Node*>;
