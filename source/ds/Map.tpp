@@ -58,4 +58,16 @@ namespace ds
 	{
 		return this->_internal.contains(key);
 	}
+
+	template <typename Key, typename Value>
+	Map<Key, Value>::const_iterator Map<Key, Value>::begin() const
+	{
+		return this->_internal.begin();
+	}
+
+	template <typename Key, typename Value>
+	Map<Key, Value>::const_iterator Map<Key, Value>::end() const
+	{
+		return this->_internal.end();
+	}
 }
