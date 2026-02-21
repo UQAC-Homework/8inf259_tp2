@@ -4,12 +4,10 @@
 #include <fstream>
 #include <iostream>
 
-#include "../include/utils/menu.h"
 #include "../include/Graphs/CityGraph.h"
+#include "../include/utils/menu.h"
 
-Plateau::Plateau()
-{
-}
+Plateau::Plateau() = default;
 
 bool Plateau::charger(const std::string& fichier)
 {
