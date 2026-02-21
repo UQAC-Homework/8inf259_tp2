@@ -1,7 +1,5 @@
 #pragma once
 
-#include <set>
-#include "Ville.h"
 #include "Graphs/CityGraph.h"
 
 class Plateau
