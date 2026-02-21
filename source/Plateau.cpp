@@ -39,11 +39,25 @@ bool Plateau::charger(const std::string& fichier)
 
 void Plateau::actionPlacerTroisCubes()
 {
+	std::cout << "Veuillez choisir une ville à infecter:" << std::endl;
+	const std::string city = utils::menu::chooseCity(
+		std::cout,
+		std::cin,
+		this->_graph.getCityNames()
+	);
+
 	throw std::logic_error("Not Implemented");
 }
 
 void Plateau::actionInfecter()
 {
+	std::cout << "Veuillez choisir une ville à infecter:" << std::endl;
+	const std::string city = utils::menu::chooseCity(
+		std::cout,
+		std::cin,
+		this->_graph.getCityNames()
+	);
+
 	throw std::logic_error("Not Implemented");
 }
 
