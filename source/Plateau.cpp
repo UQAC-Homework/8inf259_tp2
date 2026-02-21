@@ -4,7 +4,7 @@
 #include <fstream>
 #include <iostream>
 
-#include "../include/menu_utils.h"
+#include "../include/utils/menu.h"
 #include "../include/Graphs/CityGraph.h"
 
 Plateau::Plateau()
@@ -75,7 +75,7 @@ void Plateau::menu()
 
 	while (true)
 	{
-		const int choice = askChoice(std::cout, std::cin, options);
+		const int choice = utils::menu::askChoice(std::cout, std::cin, options);
 
 		switch (choice)
 		{
