@@ -4,8 +4,8 @@
 #include <fstream>
 #include <stdexcept>
 
-#include "../../include/string_utils.h"
 #include "../../include/Ville.h"
+#include "../../include/utils/string.h"
 
 void CityGraph::addCity(const Ville& city)
 {
@@ -69,7 +69,7 @@ CityGraph CityGraph::loadFromStream(std::ifstream& stream)
 	std::string line;
 	while (std::getline(stream, line))
 	{
-		line = trim(line);
+		line = utils::string::trim(line);
 
 		if (line.empty())
 			continue;
@@ -98,7 +98,7 @@ CityGraph CityGraph::loadFromStream(std::ifstream& stream)
 
 		if (processingCities)
 		{
-			const std::vector<std::string> tokens = split(line, DIVIDER_CHAR);
+			const std::vector<std::string> tokens = utils::string::split(line, DIVIDER_CHAR);
 
 			if (tokens.size() < 3)
 				throw std::out_of_range("Line has missing tokens: " + line);
@@ -112,7 +112,7 @@ CityGraph CityGraph::loadFromStream(std::ifstream& stream)
 		}
 		else
 		{
-			const std::vector<std::string> tokens = split(line, DIVIDER_CHAR);
+			const std::vector<std::string> tokens = utils::string::split(line, DIVIDER_CHAR);
 
 			if (tokens.size() < 2)
 				throw std::out_of_range("Line has missing tokens: " + line);
