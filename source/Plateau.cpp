@@ -69,6 +69,25 @@ void Plateau::actionPlacerRail()
 
 void Plateau::actionPlusCourtChemin()
 {
+	ds::Set<std::string> cities = this->_graph.getCityNames();
+
+	std::cout << "Veuillez choisir une ville de départ:" << std::endl;
+	const std::string startCity = utils::menu::chooseCity(
+		std::cout,
+		std::cin,
+		cities
+	);
+
+	cities.erase(startCity);
+
+	std::cout << std::endl;
+	std::cout << "Veuillez choisir une destination:" << std::endl;
+	const std::string endCity = utils::menu::chooseCity(
+		std::cout,
+		std::cin,
+		cities
+	);
+
 	throw std::logic_error("Not Implemented");
 }
 
