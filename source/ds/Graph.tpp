@@ -25,11 +25,11 @@ namespace ds
 	}
 
 	template <typename Node, typename Edge>
-	void Graph<Node, Edge>::addEdge(const int from, const int to)
+	void Graph<Node, Edge>::addEdge(const int from, const int to, const Edge& edge)
 	{
 		if (!this->edges.contains(from))
 			this->edges.insert(from, {});
-		this->edges[from].insert(to);
+		this->edges[from].insert(to, edge);
 	}
 
 	template <typename Node, typename Edge>
