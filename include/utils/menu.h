@@ -63,7 +63,7 @@ namespace utils::menu
 		{
 			const int choice = askChoice(output, input, options);
 
-			if (choice < 0 || choice >= cityNames.size())
+			if (choice < 0 || choice > cityNames.size())
 			{
 				output << "Choix invalide." << std::endl;
 				continue;
