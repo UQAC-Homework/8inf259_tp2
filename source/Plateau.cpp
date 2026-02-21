@@ -50,7 +50,7 @@ void Plateau::actionInfecter()
 void Plateau::actionPlacerRail()
 {
 	std::cout << "Veuillez choisir une ville où placer un rail:" << std::endl;
-	const std::string city = utils::menu::chooseCity(
+	const std::string startCity = utils::menu::chooseCity(
 		std::cout,
 		std::cin,
 		this->_graph.getCityNames()
@@ -58,10 +58,10 @@ void Plateau::actionPlacerRail()
 
 	std::cout << std::endl;
 	std::cout << "Veuillez choisir où le rail se termine:" << std::endl;
-	const std::string destination = utils::menu::chooseCity(
+	const std::string endCity = utils::menu::chooseCity(
 		std::cout,
 		std::cin,
-		this->_graph.getNeighbors(city)
+		this->_graph.getNeighbors(startCity)
 	);
 
 	throw std::logic_error("Not Implemented");
