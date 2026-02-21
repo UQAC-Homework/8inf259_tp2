@@ -44,7 +44,7 @@ namespace utils::menu
 	inline std::string chooseCity(
 		std::ostream& output,
 		std::istream& input,
-		const CityGraph& cityGraph
+		const ds::Set<std::string>& cities
 	)
 	{
 		std::vector<std::string> cityNames;
@@ -52,7 +52,7 @@ namespace utils::menu
 
 		int index = 1;
 
-		for (const auto& name : cityGraph.getCityNames())
+		for (const auto& name : cities)
 		{
 			cityNames.push_back(name);
 			options.emplace_back(index, name);
