@@ -26,7 +26,7 @@ namespace ds
 		const Node& getNode(int id) const;
 
 		/// Gets the nodes sharing an edge with the given node
-		[[nodiscard]] const Set<int>& getNeighbors(int node) const;
+		[[nodiscard]] const Map<int, Edge>& getNeighbors(int node) const;
 	};
 }
 

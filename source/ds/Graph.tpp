@@ -42,12 +42,12 @@ namespace ds
 	}
 
 	template <typename Node, typename Edge>
-	const Set<int>& Graph<Node, Edge>::getNeighbors(const int node) const
+	const Map<int, Edge>& Graph<Node, Edge>::getNeighbors(const int node) const
 	{
 		if (this->edges.contains(node))
 			return this->edges.at(node);
 
-		static const Set<int> emptySet;
-		return emptySet;
+		static const Map<int, Edge> empty;
+		return empty;
 	}
 }
