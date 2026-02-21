@@ -1,7 +1,6 @@
 #ifndef INC_8INF259_TP2_GRAPH_H
 #define INC_8INF259_TP2_GRAPH_H
 #include "Map.h"
-#include "Set.h"
 
 namespace ds
 {
