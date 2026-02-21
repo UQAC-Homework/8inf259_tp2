@@ -2,6 +2,7 @@
 
 #include <cassert>
 #include <fstream>
+#include <ranges>
 #include <stdexcept>
 
 #include "../../include/Ville.h"
@@ -9,7 +10,7 @@
 
 void CityGraph::addCity(const Ville& city)
 {
-	const int id = this->addNode(city);
+	const int id = this->_graph.addNode(city);
 	this->nameToId.insert(city.nom, id);
 }
 
@@ -24,8 +25,8 @@ void CityGraph::addRoad(const std::string& from, const std::string& to)
 	const int fromId = this->nameToId.at(from);
 	const int toId = this->nameToId.at(to);
 
-	this->addEdge(fromId, toId);
-	this->addEdge(toId, fromId);
+	this->_graph.addEdge(fromId, toId, TransportType::ROAD);
+	this->_graph.addEdge(toId, fromId, TransportType::ROAD);
 }
 
 std::size_t CityGraph::getCityCount() const
@@ -39,12 +40,12 @@ std::vector<std::string> CityGraph::getNeighbors(const std::string& city) const
 		throw std::logic_error("No such city name: " + city);
 
 	const int cityId = this->nameToId.at(city);
-	std::vector<std::string> neighbors;
+	ds::Set<std::string> neighbors;
 
-	for (const auto neighborId : BaseGraph::getNeighbors(cityId))
+	for (const auto neighborId : this->_graph.getNeighbors(cityId) | std::views::keys)
 	{
-		const Ville& neighbor = this->getNode(neighborId);
-		neighbors.push_back(neighbor.nom);
+		const Ville& neighbor = this->_graph.getNode(neighborId);
+		neighbors.insert(neighbor.nom);
 	}
 
 	return neighbors;

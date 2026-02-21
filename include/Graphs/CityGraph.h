@@ -1,13 +1,25 @@
 #ifndef INC_8INF259_TP2_CITYGRAPH_H
 #define INC_8INF259_TP2_CITYGRAPH_H
-#include "BaseGraph.h"
-#include "../Map.h"
 #include "../Ville.h"
+#include "../ds/Graph.h"
+#include "../ds/Map.h"
+#include "../ds/Set.h"
+
+/// Every possible transport type
+enum class TransportType : char
+{
+	NONE = 0,
+	ROAD = 1,
+	TRAIN = 1 << 1,
+	BOAT = 1 << 2,
+	ALL = ROAD | TRAIN | BOAT
+};
 
 /// Graph that represents a network of cities
-class CityGraph : public BaseGraph<Ville>
+class CityGraph
 {
-	Map<std::string, int> nameToId;
+	ds::Graph<Ville, TransportType> _graph;
+	ds::Map<std::string, int> nameToId;
 
 public:
 	/// Adds a city on the graph
