@@ -40,6 +40,38 @@ namespace utils::menu
 
 		return -1;
 	}
+
+	inline std::string chooseCity(
+		std::ostream& output,
+		std::istream& input,
+		const CityGraph& cityGraph
+	)
+	{
+		std::vector<std::string> cityNames;
+		std::vector<std::tuple<int, std::string>> options;
+
+		int index = 1;
+
+		for (const auto& name : cityGraph.getCityNames())
+		{
+			cityNames.push_back(name);
+			options.emplace_back(index, name);
+			index++;
+		}
+
+		while (true)
+		{
+			const int choice = askChoice(output, input, options);
+
+			if (choice < 0 || choice >= cityNames.size())
+			{
+				output << "Choix invalide." << std::endl;
+				continue;
+			}
+
+			return cityNames[choice - 1];
+		}
+	}
 }
 
 #endif //INC_8INF259_TP2_MENU_UTILS_H
