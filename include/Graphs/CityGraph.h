@@ -20,6 +20,9 @@ class CityGraph
 {
 	ds::Graph<Ville> _graph;
 	ds::Map<std::string, int> nameToId;
+	int _nextRailwayID;
+	ds::Map<int, int> railCities;
+	ds::Map<int, ds::Set<int>> railways;
 	ds::Set<int> boatCities;
 
 	/// Gets all cities reachable from the given city by road
@@ -32,6 +35,9 @@ class CityGraph
 	[[nodiscard]] ds::Set<int> getReachableByBoat(int id) const;
 
 public:
+	CityGraph();
+	~CityGraph();
+
 	/// Adds a city on the graph
 	void addCity(const Ville& city);
 
