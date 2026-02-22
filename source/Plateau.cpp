@@ -103,6 +103,9 @@ void Plateau::actionPlusCourtChemin()
 		cities
 	);
 
+	// TODO: Calculate path using only roads
+	// TODO: Calculate path using roads and rails
+	// TODO: Calculate path using roads, rails and boats
 	throw std::logic_error("Not Implemented");
 }
 
