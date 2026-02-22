@@ -32,6 +32,9 @@ namespace ds
 
 		/// Gets the edges connected to the given node
 		[[nodiscard]] const Map<int, Edge>& getEdges(int node) const;
+
+		/// Gets the amount of nodes on the graph
+		[[nodiscard]] std::size_t size() const;
 	};
 }
 

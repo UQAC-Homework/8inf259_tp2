@@ -67,4 +67,10 @@ namespace ds
 		static const Map<int, Edge> empty;
 		return empty;
 	}
+
+	template <typename Node, typename Edge>
+	std::size_t Graph<Node, Edge>::size() const
+	{
+		return this->nodes.size();
+	}
 }

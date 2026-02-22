@@ -47,7 +47,7 @@ void CityGraph::addRail(const std::string& from, const std::string& to)
 
 std::size_t CityGraph::getCityCount() const
 {
-	return this->nameToId.size();
+	return this->_graph.size();
 }
 
 ds::Set<std::string> CityGraph::getCityNames() const
