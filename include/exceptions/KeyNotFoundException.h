@@ -1,6 +1,5 @@
 #ifndef INC_8INF259_TP2_KEYMISSINGEXCEPTION_H
 #define INC_8INF259_TP2_KEYMISSINGEXCEPTION_H
-#include <any>
 #include <sstream>
 #include <string>
 

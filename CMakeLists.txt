@@ -19,4 +19,5 @@ add_executable(8inf259_tp2 main.cpp
         include/utils/pathfinding.h
         include/ds/Graph.h
         source/ds/Graph.tpp
-        include/exceptions/KeyNotFoundException.h)
+        include/exceptions/KeyNotFoundException.h
+)

@@ -5,19 +5,19 @@
 #include "../ds/Map.h"
 #include "../ds/Set.h"
 
+/// Every possible transport type
+enum TransportType : char
+{
+	NONE = 0,
+	ROAD = 1,
+	TRAIN = 1 << 1,
+	BOAT = 1 << 2,
+	ALL = ROAD | TRAIN | BOAT
+};
+
 /// Graph that represents a network of cities
 class CityGraph
 {
-	/// Every possible transport type
-	enum TransportType : char
-	{
-		NONE = 0,
-		ROAD = 1,
-		TRAIN = 1 << 1,
-		BOAT = 1 << 2,
-		ALL = ROAD | TRAIN | BOAT
-	};
-
 	ds::Graph<Ville, TransportType> _graph;
 	ds::Map<std::string, int> nameToId;
 
@@ -30,7 +30,7 @@ public:
 
 	/// Adds a road between the cities with the given names
 	void addRoad(const std::string& from, const std::string& to);
-	
+
 	/// Adds a rail between the cities with the given names
 	void addRail(const std::string& from, const std::string& to);
 
