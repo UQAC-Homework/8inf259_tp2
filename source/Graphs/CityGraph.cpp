@@ -92,21 +92,44 @@ ds::Set<std::string> CityGraph::getCityNames() const
 	return names;
 }
 
-ds::Set<std::string> CityGraph::getNeighbors(const std::string& city) const
+ds::Set<std::string> CityGraph::getNeighbors(const std::string& city, TransportType allowedTypes) const
 {
-	if (!this->nameToId.contains(city))
-		throw std::logic_error("No such city name: " + city);
-
-	const int cityId = this->nameToId.at(city);
-	ds::Set<std::string> neighbors;
-
-	for (const auto neighborId : this->_graph.getEdges(cityId) | std::views::keys)
+	if (allowedTypes == NONE)
 	{
-		const Ville& neighbor = this->_graph.getNode(neighborId);
-		neighbors.insert(neighbor.nom);
+		static const ds::Set<std::string> empty;
+		return empty;
 	}
 
-	return neighbors;
+	const int cityId = this->nameToId.at(city);
+	ds::Set<int> neighborsId;
+
+	if (allowedTypes & ROAD)
+	{
+		for (auto neighbor : this->getCitiesAccessibleByRoad(cityId))
+			neighborsId.insert(neighbor);
+	}
+
+	if (allowedTypes & TRAIN)
+	{
+		for (auto neighbor : this->getCitiesAccessibleByTrain(cityId))
+			neighborsId.insert(neighbor);
+	}
+
+	if (allowedTypes & BOAT && this->boatCities.contains(cityId))
+	{
+		for (auto neighbor : this->getCitiesAccessibleByBoat(cityId))
+			neighborsId.insert(neighbor);
+	}
+
+	ds::Set<std::string> neighborsName;
+
+	for (const auto neighborId : neighborsId)
+	{
+		const Ville& neighbor = this->_graph.getNode(neighborId);
+		neighborsName.insert(neighbor.nom);
+	}
+
+	return neighborsName;
 }
 
 CityGraph CityGraph::loadFromStream(std::ifstream& stream)

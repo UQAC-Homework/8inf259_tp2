@@ -75,7 +75,7 @@ void Plateau::actionPlacerRail()
 	const std::string endCity = utils::menu::chooseCity(
 		std::cout,
 		std::cin,
-		this->_graph.getNeighbors(startCity)
+		this->_graph.getNeighbors(startCity, ROAD)
 	);
 
 	// TODO: Add a limit of 20 rails in total
@@ -104,8 +104,29 @@ void Plateau::actionPlusCourtChemin()
 	);
 
 	// TODO: Calculate path using only roads
+	const std::vector<std::string> roadPath = utils::pathfinding::BFS(
+		this->_graph,
+		startCity,
+		endCity,
+		ROAD
+	);
+
 	// TODO: Calculate path using roads and rails
+	const std::vector<std::string> roadAndRailsPath = utils::pathfinding::BFS(
+		this->_graph,
+		startCity,
+		endCity,
+		static_cast<TransportType>(ROAD | TRAIN)
+	);
+
 	// TODO: Calculate path using roads, rails and boats
+	const std::vector<std::string> roadAndRailsAndBoatsPath = utils::pathfinding::BFS(
+		this->_graph,
+		startCity,
+		endCity,
+		ALL
+	);
+
 	throw std::logic_error("Not Implemented");
 }
 

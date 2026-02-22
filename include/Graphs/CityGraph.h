@@ -51,7 +51,7 @@ public:
 	[[nodiscard]] ds::Set<std::string> getCityNames() const;
 
 	/// Gets all the cities neighboring the given city 
-	[[nodiscard]] ds::Set<std::string> getNeighbors(const std::string& city) const;
+	[[nodiscard]] ds::Set<std::string> getNeighbors(const std::string& city, TransportType allowedTypes) const;
 
 	/// Loads the graph from the given stream
 	static CityGraph loadFromStream(std::ifstream& stream);

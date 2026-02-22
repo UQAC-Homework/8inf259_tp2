@@ -1,9 +1,6 @@
 #ifndef INC_8INF259_TP2_PATHFINDING_H
 #define INC_8INF259_TP2_PATHFINDING_H
-#include <map>
 #include <queue>
-#include <set>
-#include <stdexcept>
 #include <string>
 #include <vector>
 
@@ -11,42 +8,53 @@
 
 namespace utils::pathfinding
 {
-	inline std::vector<std::string> BFS(const CityGraph& graph, const std::string& start, const std::string& end)
+	inline std::vector<std::string> BFS(
+		const CityGraph& graph,
+		const std::string& startCity,
+		const std::string& endCity,
+		const TransportType allowedTransports
+	)
 	{
-		std::set<std::string> visited;
-		std::queue<std::string> toVisit;
-		std::map<std::string, std::string> visitFrom;
+		std::queue<std::string> citiesToVisit;
+		ds::Set<std::string> citiesVisited;
+		ds::Map<std::string, std::string> citiesVisitedFrom;
+		bool hasFoundEnd = false;
 
-		toVisit.push(start);
-		visited.insert(start);
+		citiesToVisit.push(startCity);
+		citiesVisited.insert(startCity);
 
-		while (!toVisit.empty())
+		while (!hasFoundEnd && !citiesToVisit.empty())
 		{
-			const std::string current = toVisit.front();
-			toVisit.pop();
+			const std::string currentCity = citiesToVisit.front();
+			citiesToVisit.pop();
 
-			for (const auto& neighbor : graph.getNeighbors(current))
+			for (const auto& neighborCity : graph.getNeighbors(currentCity, allowedTransports))
 			{
-				if (visited.contains(neighbor))
+				if (citiesVisited.contains(neighborCity))
 					continue;
 
-				visitFrom[neighbor] = current;
-				visited.insert(neighbor);
-				toVisit.push(neighbor);
+				citiesVisitedFrom.insert(neighborCity, currentCity);
+				citiesVisited.insert(neighborCity);
+				citiesToVisit.push(neighborCity);
+
+				if (neighborCity != endCity)
+					continue;
+
+				hasFoundEnd = true;
+				break;
 			}
 		}
 
-		if (!visitFrom.contains(end))
-			throw std::logic_error("No path from '" + start + "' to '" + end + "'.");
-
 		std::vector<std::string> path;
-		std::string current = end;
+		std::string currentCity = endCity;
 
-		while (visited.contains(current))
+		while (citiesVisitedFrom.contains(currentCity))
 		{
-			path.push_back(current);
-			current = visitFrom[current];
+			path.push_back(currentCity);
+			currentCity = citiesVisitedFrom.at(currentCity);
 		}
+
+		path.push_back(startCity);
 
 		std::reverse(path.begin(), path.end());
 
