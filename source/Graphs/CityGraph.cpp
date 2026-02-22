@@ -8,6 +8,27 @@
 #include "../../include/Ville.h"
 #include "../../include/utils/string.h"
 
+void CityGraph::addConnection(const std::string& from, const std::string& to, const TransportType type)
+{
+	if (!this->nameToId.contains(from))
+		throw std::logic_error("No city named '" + from + "' was added.");
+
+	if (!this->nameToId.contains(to))
+		throw std::logic_error("No city named '" + to + "' was added.");
+
+	const int fromId = this->nameToId.at(from);
+	const int toId = this->nameToId.at(to);
+
+	if (this->_graph.isConnected(fromId, toId))
+	{
+		TransportType edge = this->_graph.getEdge(fromId, toId);
+		edge = static_cast<TransportType>(edge | type);
+		this->_graph.setEdge(fromId, toId, edge);
+	}
+	else
+		this->_graph.addEdge(fromId, toId, type);
+}
+
 void CityGraph::addCity(const Ville& city)
 {
 	const int id = this->_graph.addNode(city);
@@ -16,17 +37,12 @@ void CityGraph::addCity(const Ville& city)
 
 void CityGraph::addRoad(const std::string& from, const std::string& to)
 {
-	if (!this->nameToId.contains(from))
-		throw std::logic_error("No such city name: " + from);
+	this->addConnection(from, to, ROAD);
+}
 
-	if (!this->nameToId.contains(to))
-		throw std::logic_error("No such city name: " + to);
-
-	const int fromId = this->nameToId.at(from);
-	const int toId = this->nameToId.at(to);
-
-	this->_graph.addEdge(fromId, toId, TransportType::ROAD);
-	this->_graph.addEdge(toId, fromId, TransportType::ROAD);
+void CityGraph::addRail(const std::string& from, const std::string& to)
+{
+	this->addConnection(from, to, TRAIN);
 }
 
 std::size_t CityGraph::getCityCount() const
@@ -34,7 +50,17 @@ std::size_t CityGraph::getCityCount() const
 	return this->nameToId.size();
 }
 
-std::vector<std::string> CityGraph::getNeighbors(const std::string& city) const
+ds::Set<std::string> CityGraph::getCityNames() const
+{
+	ds::Set<std::string> names;
+
+	for (const auto& name : this->nameToId | std::views::keys)
+		names.insert(name);
+
+	return names;
+}
+
+ds::Set<std::string> CityGraph::getNeighbors(const std::string& city) const
 {
 	if (!this->nameToId.contains(city))
 		throw std::logic_error("No such city name: " + city);

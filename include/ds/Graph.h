@@ -18,14 +18,23 @@ namespace ds
 		/// Adds a new node onto the graph
 		int addNode(Node element);
 
-		/// Adds an edge between two nodes with the given ids
-		void addEdge(int from, int to, const Edge& edge);
-
 		/// Gets the node with the given id
 		const Node& getNode(int id) const;
 
+		/// Adds an edge between two nodes with the given ids
+		void addEdge(int from, int to, const Edge& edge);
+
+		/// Sets the edge between two nodes
+		void setEdge(int from, int to, const Edge& edge);
+
+		/// Gets the edge between two nodes with the given ids
+		const Edge& getEdge(int from, int to) const;
+
 		/// Gets the nodes sharing an edge with the given node
 		[[nodiscard]] const Map<int, Edge>& getNeighbors(int node) const;
+
+		/// Checks if an edge exists between the given nodes 
+		[[nodiscard]] bool isConnected(int from, int to) const;
 	};
 }
 

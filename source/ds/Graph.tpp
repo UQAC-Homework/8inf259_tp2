@@ -25,20 +25,45 @@ namespace ds
 	}
 
 	template <typename Node, typename Edge>
-	void Graph<Node, Edge>::addEdge(const int from, const int to, const Edge& edge)
-	{
-		if (!this->edges.contains(from))
-			this->edges.insert(from, {});
-		this->edges[from].insert(to, edge);
-	}
-
-	template <typename Node, typename Edge>
 	const Node& Graph<Node, Edge>::getNode(int id) const
 	{
 		if (!this->nodes.contains(id))
 			throw std::out_of_range("Node with id '" + std::to_string(id) + "' does not exist.");
 
 		return this->nodes.at(id);
+	}
+
+	template <typename Node, typename Edge>
+	void Graph<Node, Edge>::addEdge(const int from, const int to, const Edge& edge)
+	{
+		if (this->isConnected(from, to))
+			throw std::logic_error(
+				"An edge between '" + std::to_string(from) + "' and '" + std::to_string(to) + "' already exists.");
+
+		if (!this->edges.contains(from))
+			this->edges.insert(from, {});
+
+		this->setEdge(from, to, edge);
+	}
+
+	template <typename Node, typename Edge>
+	void Graph<Node, Edge>::setEdge(const int from, const int to, const Edge& edge)
+	{
+		if (!this->isConnected(from, to))
+			throw std::logic_error(
+				"No edge defined coming from '" + std::to_string(from) + "' to '" + std::to_string(to) + "'.");
+
+		this->edges[from][to] = edge;
+	}
+
+	template <typename Node, typename Edge>
+	const Edge& Graph<Node, Edge>::getEdge(int from, int to) const
+	{
+		if (!this->isConnected(from, to))
+			throw std::out_of_range(
+				"No edge defined coming from '" + std::to_string(from) + "' to '" + std::to_string(to) + "'.");
+
+		return this->edges.at(from).at(to);
 	}
 
 	template <typename Node, typename Edge>
@@ -49,5 +74,17 @@ namespace ds
 
 		static const Map<int, Edge> empty;
 		return empty;
+	}
+
+	template <typename Node, typename Edge>
+	bool Graph<Node, Edge>::isConnected(int from, int to) const
+	{
+		if (!this->edges.contains(from))
+			return false;
+
+		if (!this->edges.at(from).contains(to))
+			return false;
+
+		return true;
 	}
 }

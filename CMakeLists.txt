@@ -8,13 +8,14 @@ add_executable(8inf259_tp2 main.cpp
         include/Plateau.h
         source/Plateau.cpp
         source/Ville.cpp
-        include/string_utils.h
-        source/Map.cpp
-        include/Map.h
-        include/menu_utils.h
-        source/Graphs/BaseGraph.cpp
-        include/Graphs/BaseGraph.h
+        include/utils/string.h
+        source/ds/Map.tpp
+        include/ds/Map.h
+        include/utils/menu.h
         source/Graphs/CityGraph.cpp
         include/Graphs/CityGraph.h
-        source/Set.cpp
-        include/Set.h)
+        source/ds/Set.tpp
+        include/ds/Set.h
+        include/utils/pathfinding.h
+        include/ds/Graph.h
+        source/ds/Graph.tpp)
