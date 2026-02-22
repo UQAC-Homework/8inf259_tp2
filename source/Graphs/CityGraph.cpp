@@ -42,12 +42,6 @@ void CityGraph::addCity(const Ville& city)
 
 void CityGraph::addRoad(const std::string& from, const std::string& to)
 {
-	if (!this->nameToId.contains(from))
-		throw std::logic_error("No city named '" + from + "' was added.");
-
-	if (!this->nameToId.contains(to))
-		throw std::logic_error("No city named '" + to + "' was added.");
-
 	const int fromID = this->nameToId.at(from);
 	const int toID = this->nameToId.at(to);
 
