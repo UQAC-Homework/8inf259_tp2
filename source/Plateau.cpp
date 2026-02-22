@@ -104,6 +104,8 @@ void Plateau::actionPlusCourtChemin()
 		std::cin,
 		cities
 	);
+	
+	std::cout << "=== " << startCity << " -> " << endCity << " ===" << std::endl;
 
 	const std::vector<std::string> roadPath = utils::pathfinding::BFS(
 		this->_graph,
@@ -111,8 +113,9 @@ void Plateau::actionPlusCourtChemin()
 		endCity,
 		ROAD
 	);
+	const std::size_t roadActionCount = roadPath.size() - 1;
 
-	std::cout << "[ROUTE] Terrestre uniquement (" << roadPath.size() << " actions):" << std::endl;
+	std::cout << "[ROUTE] Terrestre uniquement (" << roadActionCount << " actions):" << std::endl;
 	for (int i = 0; i < roadPath.size(); ++i)
 	{
 		std::cout << roadPath[i];
@@ -128,9 +131,10 @@ void Plateau::actionPlusCourtChemin()
 		endCity,
 		static_cast<TransportType>(ROAD | TRAIN)
 	);
+	const std::size_t roadAndRailsActionCount = roadAndRailsPath.size() - 1;
 
 	std::cout << std::endl;
-	std::cout << "[ROUTE + TRAIN] Terrestre + Rails (" << roadAndRailsPath.size() << " actions):" << std::endl;
+	std::cout << "[ROUTE + TRAIN] Terrestre + Rails (" << roadAndRailsActionCount << " actions):" << std::endl;
 	for (int i = 0; i < roadAndRailsPath.size(); ++i)
 	{
 		// TODO: Say if a RAIL has been used
@@ -140,7 +144,7 @@ void Plateau::actionPlusCourtChemin()
 			std::cout << " -> ";
 	}
 	std::cout << std::endl;
-	std::cout << "=> Gain de " + std::to_string(roadPath.size() - roadAndRailsPath.size()) <<
+	std::cout << "=> Gain de " + std::to_string(roadActionCount - roadAndRailsActionCount) <<
 		" action(s) grâce aux rails!" << std::endl;
 
 	const std::vector<std::string> roadAndRailsAndBoatsPath = utils::pathfinding::BFS(
@@ -149,9 +153,10 @@ void Plateau::actionPlusCourtChemin()
 		endCity,
 		ALL
 	);
+	const std::size_t roadAndRailsAndBoatsActionCount = roadAndRailsAndBoatsPath.size() - 1;
 
 	std::cout << std::endl;
-	std::cout << "[TOUT] Terrestre + Rails + Mer (" << roadAndRailsAndBoatsPath.size() << " actions):" << std::endl;
+	std::cout << "[TOUT] Terrestre + Rails + Mer (" << roadAndRailsAndBoatsActionCount << " actions):" << std::endl;
 	for (int i = 0; i < roadAndRailsAndBoatsPath.size(); ++i)
 	{
 		// TODO: Say if a RAIL or a BOAT has been used
@@ -161,7 +166,7 @@ void Plateau::actionPlusCourtChemin()
 			std::cout << " -> ";
 	}
 	std::cout << std::endl;
-	std::cout << "=> Gain de " + std::to_string(roadPath.size() - roadAndRailsAndBoatsPath.size()) <<
+	std::cout << "=> Gain de " + std::to_string(roadActionCount - roadAndRailsAndBoatsActionCount) <<
 		" action(s) grâce au total!" << std::endl;
 }
 
