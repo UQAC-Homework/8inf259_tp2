@@ -20,6 +20,7 @@ class CityGraph
 {
 	ds::Graph<Ville, TransportType> _graph;
 	ds::Map<std::string, int> nameToId;
+	ds::Set<int> boatCities;
 
 	/// Adds a connection of the given type between the cities with the given names 
 	void addConnection(const std::string& from, const std::string& to, TransportType type);

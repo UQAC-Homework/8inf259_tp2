@@ -33,6 +33,9 @@ void CityGraph::addCity(const Ville& city)
 {
 	const int id = this->_graph.addNode(city);
 	this->nameToId.insert(city.nom, id);
+
+	if (city.port)
+		this->boatCities.insert(id);
 }
 
 void CityGraph::addRoad(const std::string& from, const std::string& to)
