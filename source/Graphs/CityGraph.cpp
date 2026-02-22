@@ -38,11 +38,13 @@ void CityGraph::addCity(const Ville& city)
 void CityGraph::addRoad(const std::string& from, const std::string& to)
 {
 	this->addConnection(from, to, ROAD);
+	this->addConnection(to, from, ROAD);
 }
 
 void CityGraph::addRail(const std::string& from, const std::string& to)
 {
 	this->addConnection(from, to, TRAIN);
+	this->addConnection(to, from, TRAIN);
 }
 
 std::size_t CityGraph::getCityCount() const
