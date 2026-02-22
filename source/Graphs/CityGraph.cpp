@@ -173,6 +173,28 @@ ds::Set<std::string> CityGraph::getNeighbors(const std::string& city, const Tran
 	return neighborsName;
 }
 
+TransportType CityGraph::getAvailableTransportTypes(const std::string& from, const std::string& to) const
+{
+	const int fromID = this->nameToId.at(from);
+	const int toID = this->nameToId.at(to);
+
+	const Ville& fromCity = this->_graph.getNode(fromID);
+	const Ville& toCity = this->_graph.getNode(toID);
+
+	TransportType transportTypes = NONE;
+
+	if (this->_graph.areConnected(fromID, toID))
+		transportTypes = static_cast<TransportType>(transportTypes | ROAD);
+
+	if (this->railCities.contains(fromID) && this->getReachableByTrain(fromID).contains(toID))
+		transportTypes = static_cast<TransportType>(transportTypes | TRAIN);
+
+	if (fromCity.port && toCity.port)
+		transportTypes = static_cast<TransportType>(transportTypes | BOAT);
+
+	return transportTypes;
+}
+
 CityGraph CityGraph::loadFromStream(std::ifstream& stream)
 {
 	// ReSharper disable CppTooWideScopeInitStatement

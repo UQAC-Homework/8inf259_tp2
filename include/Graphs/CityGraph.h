@@ -59,6 +59,9 @@ public:
 	/// Gets all the cities neighboring the given city 
 	[[nodiscard]] ds::Set<std::string> getNeighbors(const std::string& city, TransportType allowedTypes) const;
 
+	/// Gets all the connections available between the given cities
+	[[nodiscard]] TransportType getAvailableTransportTypes(const std::string& from, const std::string& to) const;
+
 	/// Loads the graph from the given stream
 	static CityGraph loadFromStream(std::ifstream& stream);
 };
