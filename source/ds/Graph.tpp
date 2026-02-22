@@ -7,8 +7,6 @@ namespace ds
 	Graph<Node>::Graph()
 	{
 		this->nextId = 0;
-		this->nodes = {};
-		this->edges = {};
 	}
 
 	template <typename Node>
