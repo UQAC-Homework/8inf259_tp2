@@ -104,7 +104,7 @@ void Plateau::actionPlusCourtChemin()
 		std::cin,
 		cities
 	);
-	
+
 	std::cout << "=== " << startCity << " -> " << endCity << " ===" << std::endl;
 
 	const std::vector<std::string> roadPath = utils::pathfinding::BFS(
@@ -116,14 +116,7 @@ void Plateau::actionPlusCourtChemin()
 	const std::size_t roadActionCount = roadPath.size() - 1;
 
 	std::cout << "[ROUTE] Terrestre uniquement (" << roadActionCount << " actions):" << std::endl;
-	for (int i = 0; i < roadPath.size(); ++i)
-	{
-		std::cout << roadPath[i];
-
-		if (i != roadPath.size() - 1)
-			std::cout << " -> ";
-	}
-	std::cout << std::endl;
+	utils::menu::displayPath(std::cout, roadPath, this->_graph);
 
 	const std::vector<std::string> roadAndRailsPath = utils::pathfinding::BFS(
 		this->_graph,
@@ -135,15 +128,7 @@ void Plateau::actionPlusCourtChemin()
 
 	std::cout << std::endl;
 	std::cout << "[ROUTE + TRAIN] Terrestre + Rails (" << roadAndRailsActionCount << " actions):" << std::endl;
-	for (int i = 0; i < roadAndRailsPath.size(); ++i)
-	{
-		// TODO: Say if a RAIL has been used
-		std::cout << roadAndRailsPath[i];
-
-		if (i != roadAndRailsPath.size() - 1)
-			std::cout << " -> ";
-	}
-	std::cout << std::endl;
+	utils::menu::displayPath(std::cout, roadAndRailsPath, this->_graph);
 	std::cout << "=> Gain de " + std::to_string(roadActionCount - roadAndRailsActionCount) <<
 		" action(s) grâce aux rails!" << std::endl;
 
@@ -157,15 +142,7 @@ void Plateau::actionPlusCourtChemin()
 
 	std::cout << std::endl;
 	std::cout << "[TOUT] Terrestre + Rails + Mer (" << roadAndRailsAndBoatsActionCount << " actions):" << std::endl;
-	for (int i = 0; i < roadAndRailsAndBoatsPath.size(); ++i)
-	{
-		// TODO: Say if a RAIL or a BOAT has been used
-		std::cout << roadAndRailsAndBoatsPath[i];
-
-		if (i != roadAndRailsAndBoatsPath.size() - 1)
-			std::cout << " -> ";
-	}
-	std::cout << std::endl;
+	utils::menu::displayPath(std::cout, roadAndRailsAndBoatsPath, this->_graph);
 	std::cout << "=> Gain de " + std::to_string(roadActionCount - roadAndRailsAndBoatsActionCount) <<
 		" action(s) grâce au total!" << std::endl;
 }

@@ -72,6 +72,39 @@ namespace utils::menu
 			return cityNames[choice - 1];
 		}
 	}
+
+	inline void displayPath(
+		std::ostream& output,
+		const std::vector<std::string>& path,
+		const CityGraph& graph
+	)
+	{
+		for (int i = 0; i < path.size(); ++i)
+		{
+			output << path[i];
+
+			if (i > 0)
+			{
+				const TransportType type = graph.getAvailableTransportTypes(
+					path[i - 1],
+					path[i]
+				);
+				
+				if (type & ROAD)
+				{
+					//output << " [ROUTE]";
+				}
+				else if (type & TRAIN)
+					output << " [TRAIN]";
+				else if (type & BOAT)
+					output << " [MER]";
+			}
+
+			if (i != path.size() - 1)
+				output << " -> ";
+		}
+		output << std::endl;
+	}
 }
 
 #endif //INC_8INF259_TP2_MENU_UTILS_H
