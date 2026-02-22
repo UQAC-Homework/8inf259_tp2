@@ -7,7 +7,10 @@
 namespace ds
 {
 	template <typename Key, typename Value>
-	Map<Key, Value>::Map() = default;
+	Map<Key, Value>::Map()
+	{
+		this->_internal = std::map<Key, Value>();
+	}
 
 	template <typename Key, typename Value>
 	Map<Key, Value>::~Map() = default;
