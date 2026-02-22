@@ -23,9 +23,9 @@ namespace ds
 
 		/// Adds an edge between two nodes with the given ids
 		void addEdge(int from, int to, const Edge& edge);
-
-		/// Sets the edge between two nodes
-		void setEdge(int from, int to, const Edge& edge);
+		
+		/// Removes the edge between the given nodes
+		void removeEdge(int from, int to);
 
 		/// Gets the edge between two nodes with the given ids
 		const Edge& getEdge(int from, int to) const;

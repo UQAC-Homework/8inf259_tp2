@@ -43,17 +43,21 @@ namespace ds
 		if (!this->edges.contains(from))
 			this->edges.insert(from, {});
 
-		this->setEdge(from, to, edge);
+		this->edges[from][to] = edge;
 	}
 
 	template <typename Node, typename Edge>
-	void Graph<Node, Edge>::setEdge(const int from, const int to, const Edge& edge)
+	void Graph<Node, Edge>::removeEdge(const int from, const int to)
 	{
 		if (!this->isConnected(from, to))
-			throw std::logic_error(
-				"No edge defined coming from '" + std::to_string(from) + "' to '" + std::to_string(to) + "'.");
+			return;
 
-		this->edges[from][to] = edge;
+		auto fromEdges = this->edges.at(from);
+
+		fromEdges.erase(to);
+
+		if (fromEdges.size() == 0)
+			this->edges.erase(from);
 	}
 
 	template <typename Node, typename Edge>
