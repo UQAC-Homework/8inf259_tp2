@@ -4,7 +4,12 @@
 namespace ds
 {
 	template <typename Node>
-	Graph<Node>::Graph() = default;
+	Graph<Node>::Graph()
+	{
+		this->nextId = 0;
+		this->nodes = {};
+		this->edges = {};
+	}
 
 	template <typename Node>
 	Graph<Node>::~Graph() = default;
