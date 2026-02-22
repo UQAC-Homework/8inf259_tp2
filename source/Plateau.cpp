@@ -6,6 +6,7 @@
 
 #include "../include/Graphs/CityGraph.h"
 #include "../include/utils/menu.h"
+#include "../include/utils/pathfinding.h"
 
 Plateau::Plateau() = default;
 
@@ -79,6 +80,7 @@ void Plateau::actionPlacerRail()
 	);
 
 	// TODO: Add a limit of 20 rails in total
+	this->_graph.addRail(startCity, endCity);
 	throw std::logic_error("Not Implemented");
 }
 
@@ -103,7 +105,6 @@ void Plateau::actionPlusCourtChemin()
 		cities
 	);
 
-	// TODO: Calculate path using only roads
 	const std::vector<std::string> roadPath = utils::pathfinding::BFS(
 		this->_graph,
 		startCity,
@@ -111,7 +112,16 @@ void Plateau::actionPlusCourtChemin()
 		ROAD
 	);
 
-	// TODO: Calculate path using roads and rails
+	std::cout << "[ROUTE] Terrestre uniquement (" << roadPath.size() << " actions):" << std::endl;
+	for (int i = 0; i < roadPath.size(); ++i)
+	{
+		std::cout << roadPath[i];
+
+		if (i != roadPath.size() - 1)
+			std::cout << " -> ";
+	}
+	std::cout << std::endl;
+
 	const std::vector<std::string> roadAndRailsPath = utils::pathfinding::BFS(
 		this->_graph,
 		startCity,
@@ -119,7 +129,20 @@ void Plateau::actionPlusCourtChemin()
 		static_cast<TransportType>(ROAD | TRAIN)
 	);
 
-	// TODO: Calculate path using roads, rails and boats
+	std::cout << std::endl;
+	std::cout << "[ROUTE + TRAIN] Terrestre + Rails (" << roadAndRailsPath.size() << " actions):" << std::endl;
+	for (int i = 0; i < roadAndRailsPath.size(); ++i)
+	{
+		// TODO: Say if a RAIL has been used
+		std::cout << roadAndRailsPath[i];
+
+		if (i != roadAndRailsPath.size() - 1)
+			std::cout << " -> ";
+	}
+	std::cout << std::endl;
+	std::cout << "=> Gain de " + std::to_string(roadPath.size() - roadAndRailsPath.size()) <<
+		" action(s) grâce aux rails!" << std::endl;
+
 	const std::vector<std::string> roadAndRailsAndBoatsPath = utils::pathfinding::BFS(
 		this->_graph,
 		startCity,
@@ -127,7 +150,19 @@ void Plateau::actionPlusCourtChemin()
 		ALL
 	);
 
-	throw std::logic_error("Not Implemented");
+	std::cout << std::endl;
+	std::cout << "[TOUT] Terrestre + Rails + Mer (" << roadAndRailsAndBoatsPath.size() << " actions):" << std::endl;
+	for (int i = 0; i < roadAndRailsAndBoatsPath.size(); ++i)
+	{
+		// TODO: Say if a RAIL or a BOAT has been used
+		std::cout << roadAndRailsAndBoatsPath[i];
+
+		if (i != roadAndRailsAndBoatsPath.size() - 1)
+			std::cout << " -> ";
+	}
+	std::cout << std::endl;
+	std::cout << "=> Gain de " + std::to_string(roadPath.size() - roadAndRailsAndBoatsPath.size()) <<
+		" action(s) grâce au total!" << std::endl;
 }
 
 void Plateau::afficherEtat()
