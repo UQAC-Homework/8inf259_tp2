@@ -49,6 +49,9 @@ public:
 
 	/// Gets the amount of cities on the graph
 	[[nodiscard]] std::size_t getCityCount() const;
+	
+	/// Gets the amount of rails on the graph
+	[[nodiscard]] std::size_t getRailsCount() const;
 
 	/// Gets all the cities by name
 	[[nodiscard]] ds::Set<std::string> getCityNames() const;

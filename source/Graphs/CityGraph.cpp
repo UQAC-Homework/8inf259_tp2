@@ -107,6 +107,16 @@ std::size_t CityGraph::getCityCount() const
 	return this->_graph.size();
 }
 
+std::size_t CityGraph::getRailsCount() const
+{
+	const std::size_t size = this->railCities.size();
+
+	if (size == 0)
+		return 0;
+
+	return size - 1;
+}
+
 ds::Set<std::string> CityGraph::getCityNames() const
 {
 	ds::Set<std::string> names;
