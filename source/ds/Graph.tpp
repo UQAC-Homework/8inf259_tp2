@@ -43,7 +43,7 @@ namespace ds
 		if (!this->edges.contains(from))
 			this->edges.insert(from, {});
 
-		this->edges[from][to] = edge;
+		this->edges[from].insert(to, edge);
 	}
 
 	template <typename Node, typename Edge>
