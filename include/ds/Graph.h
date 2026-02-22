@@ -1,14 +1,15 @@
 #ifndef INC_8INF259_TP2_GRAPH_H
 #define INC_8INF259_TP2_GRAPH_H
 #include "Map.h"
+#include "Set.h"
 
 namespace ds
 {
-	template <typename Node, typename Edge>
+	template <typename Node>
 	class Graph
 	{
 		int nextId;
-		Map<int, Map<int, Edge>> edges;
+		Map<int, Set<int>> edges;
 		Map<int, Node> nodes;
 
 	public:
@@ -22,16 +23,16 @@ namespace ds
 		const Node& getNode(int id) const;
 
 		/// Adds an edge between the given nodes
-		void addEdge(int from, int to, const Edge& value);
+		void addEdge(int from, int to);
 
 		/// Removes the edge between the given nodes
-		Edge& removeEdge(int from, int to);
+		void removeEdge(int from, int to);
 
 		/// Checks if the given nodes are connected
 		[[nodiscard]] bool areConnected(int from, int to) const;
 
 		/// Gets the edges connected to the given node
-		[[nodiscard]] const Map<int, Edge>& getEdges(int node) const;
+		[[nodiscard]] const Set<int>& getEdges(int node) const;
 
 		/// Gets the amount of nodes on the graph
 		[[nodiscard]] std::size_t size() const;

@@ -3,14 +3,14 @@
 
 namespace ds
 {
-	template <typename Node, typename Edge>
-	Graph<Node, Edge>::Graph() = default;
+	template <typename Node>
+	Graph<Node>::Graph() = default;
 
-	template <typename Node, typename Edge>
-	Graph<Node, Edge>::~Graph() = default;
+	template <typename Node>
+	Graph<Node>::~Graph() = default;
 
-	template <typename Node, typename Edge>
-	int Graph<Node, Edge>::addNode(Node value)
+	template <typename Node>
+	int Graph<Node>::addNode(Node value)
 	{
 		const int id = this->nextId;
 
@@ -21,14 +21,14 @@ namespace ds
 		return id;
 	}
 
-	template <typename Node, typename Edge>
-	const Node& Graph<Node, Edge>::getNode(int id) const
+	template <typename Node>
+	const Node& Graph<Node>::getNode(int id) const
 	{
 		return this->nodes.at(id);
 	}
 
-	template <typename Node, typename Edge>
-	void Graph<Node, Edge>::addEdge(int from, int to, const Edge& value)
+	template <typename Node>
+	void Graph<Node>::addEdge(int from, int to)
 	{
 		if (this->areConnected(from, to))
 			throw std::logic_error(
@@ -37,20 +37,17 @@ namespace ds
 		if (!this->edges.contains(from))
 			this->edges.insert(from, {});
 
-		this->edges[from].insert(to, value);
+		this->edges[from].insert(to);
 	}
 
-	template <typename Node, typename Edge>
-	Edge& Graph<Node, Edge>::removeEdge(int from, int to)
+	template <typename Node>
+	void Graph<Node>::removeEdge(int from, int to)
 	{
-		Edge& edge = this->edges[from][to];
 		this->edges[from].erase(to);
-
-		return edge;
 	}
 
-	template <typename Node, typename Edge>
-	bool Graph<Node, Edge>::areConnected(int from, int to) const
+	template <typename Node>
+	bool Graph<Node>::areConnected(const int from, const int to) const
 	{
 		if (!this->edges.contains(from))
 			return false;
@@ -58,18 +55,18 @@ namespace ds
 		return this->edges.at(from).contains(to);
 	}
 
-	template <typename Node, typename Edge>
-	const Map<int, Edge>& Graph<Node, Edge>::getEdges(int node) const
+	template <typename Node>
+	const Set<int>& Graph<Node>::getEdges(const int node) const
 	{
 		if (this->edges.contains(node))
 			return this->edges.at(node);
 
-		static const Map<int, Edge> empty;
+		static const Set<int> empty;
 		return empty;
 	}
 
-	template <typename Node, typename Edge>
-	std::size_t Graph<Node, Edge>::size() const
+	template <typename Node>
+	std::size_t Graph<Node>::size() const
 	{
 		return this->nodes.size();
 	}
