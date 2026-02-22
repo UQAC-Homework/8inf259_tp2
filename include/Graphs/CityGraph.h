@@ -18,7 +18,7 @@ enum TransportType : char
 /// Graph that represents a network of cities
 class CityGraph
 {
-	ds::Graph<Ville, TransportType> _graph;
+	ds::Graph<Ville> _graph;
 	ds::Map<std::string, int> nameToId;
 	ds::Set<int> boatCities;
 
