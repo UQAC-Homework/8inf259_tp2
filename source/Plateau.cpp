@@ -62,6 +62,7 @@ void Plateau::actionInfecter()
 void Plateau::actionPlacerRail()
 {
 	std::cout << "Veuillez choisir une ville où placer un rail:" << std::endl;
+	// TODO: Filter out cities that cannot have rails
 	const std::string startCity = utils::menu::chooseCity(
 		std::cout,
 		std::cin,
@@ -70,30 +71,19 @@ void Plateau::actionPlacerRail()
 
 	std::cout << std::endl;
 	std::cout << "Veuillez choisir où le rail se termine:" << std::endl;
+	// TODO: Prevent rails to be placed where rails already exist
 	const std::string endCity = utils::menu::chooseCity(
 		std::cout,
 		std::cin,
 		this->_graph.getNeighbors(startCity)
 	);
 
+	// TODO: Add a limit of 20 rails in total
 	throw std::logic_error("Not Implemented");
 }
 
 void Plateau::actionPlusCourtChemin()
 {
-	const int mode = utils::menu::askChoice(
-		std::cout,
-		std::cin,
-		{
-			{1, "Route"},
-			{2, "Route + Rails"},
-			{3, "Route + Rails + Mer"}
-		}
-	);
-
-	if (mode <= 0 || mode > 3)
-		return;
-
 	ds::Set<std::string> cities = this->_graph.getCityNames();
 
 	std::cout << "Veuillez choisir une ville de départ:" << std::endl;
