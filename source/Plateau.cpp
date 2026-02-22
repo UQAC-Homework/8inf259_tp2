@@ -62,6 +62,12 @@ void Plateau::actionInfecter()
 
 void Plateau::actionPlacerRail()
 {
+	if (this->_graph.getRailsCount() >= 20)
+	{
+		std::cout << "La limite de 20 rails a déjà été atteinte." << std::endl;
+		return;
+	}
+
 	std::cout << "Veuillez choisir une ville où placer un rail:" << std::endl;
 	// TODO: Filter out cities that cannot have rails
 	const std::string startCity = utils::menu::chooseCity(
@@ -79,9 +85,7 @@ void Plateau::actionPlacerRail()
 		this->_graph.getNeighbors(startCity, ROAD)
 	);
 
-	// TODO: Add a limit of 20 rails in total
 	this->_graph.addRail(startCity, endCity);
-	throw std::logic_error("Not Implemented");
 }
 
 void Plateau::actionPlusCourtChemin()
