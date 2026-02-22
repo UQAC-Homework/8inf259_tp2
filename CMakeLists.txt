@@ -20,4 +20,5 @@ add_executable(8inf259_tp2 main.cpp
         include/ds/Graph.h
         source/ds/Graph.tpp
         include/exceptions/KeyNotFoundException.h
+        include/utils/graph.h
 )

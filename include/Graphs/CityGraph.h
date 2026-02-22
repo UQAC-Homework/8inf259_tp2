@@ -61,9 +61,6 @@ public:
 
 	/// Gets all the connections available between the given cities
 	[[nodiscard]] TransportType getAvailableTransportTypes(const std::string& from, const std::string& to) const;
-
-	/// Loads the graph from the given stream
-	static CityGraph loadFromStream(std::ifstream& stream);
 };
 
 

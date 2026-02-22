@@ -5,6 +5,7 @@
 #include <iostream>
 
 #include "../include/Graphs/CityGraph.h"
+#include "../include/utils/graph.h"
 #include "../include/utils/menu.h"
 #include "../include/utils/pathfinding.h"
 
@@ -22,7 +23,7 @@ bool Plateau::charger(const std::string& fichier)
 
 	try
 	{
-		this->_graph = CityGraph::loadFromStream(stream);
+		this->_graph = utils::graph::loadGraphFromStream(stream);
 	}
 	catch (const std::exception& ex)
 	{
