@@ -1,7 +1,8 @@
 #pragma once
 
-#include <stdexcept>
 #include <utility>
+
+#include "../../include/exceptions/KeyNotFoundException.h"
 
 namespace ds
 {
@@ -21,7 +22,7 @@ namespace ds
 	Value& Map<Key, Value>::operator[](const Key& key)
 	{
 		if (!this->contains(key))
-			throw std::out_of_range("Key was not found");
+			throw exceptions::KeyNotFoundException(key);
 
 		return this->_internal[key];
 	}
@@ -30,7 +31,7 @@ namespace ds
 	const Value& Map<Key, Value>::at(const Key& key) const
 	{
 		if (!this->contains(key))
-			throw std::out_of_range("Key was not found");
+			throw exceptions::KeyNotFoundException(key);
 
 		return this->_internal.at(key);
 	}
