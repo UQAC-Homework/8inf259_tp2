@@ -15,26 +15,23 @@ namespace ds
 		Graph();
 		~Graph();
 
-		/// Adds a new node onto the graph
-		int addNode(Node element);
+		/// Adds a node to the graph 
+		int addNode(Node value);
 
-		/// Gets the node with the given id
+		/// Gets the value of the given node
 		const Node& getNode(int id) const;
 
-		/// Adds an edge between two nodes with the given ids
-		void addEdge(int from, int to, const Edge& edge);
-		
+		/// Adds an edge between the given nodes
+		void addEdge(int from, int to, const Edge& value);
+
 		/// Removes the edge between the given nodes
-		void removeEdge(int from, int to);
+		Edge& removeEdge(int from, int to);
 
-		/// Gets the edge between two nodes with the given ids
-		const Edge& getEdge(int from, int to) const;
+		/// Checks if the given nodes are connected
+		[[nodiscard]] bool areConnected(int from, int to) const;
 
-		/// Gets the nodes sharing an edge with the given node
-		[[nodiscard]] const Map<int, Edge>& getNeighbors(int node) const;
-
-		/// Checks if an edge exists between the given nodes 
-		[[nodiscard]] bool isConnected(int from, int to) const;
+		/// Gets the edges connected to the given node
+		[[nodiscard]] const Map<int, Edge>& getEdges(int node) const;
 	};
 }
 

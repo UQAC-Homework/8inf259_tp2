@@ -19,11 +19,11 @@ void CityGraph::addConnection(const std::string& from, const std::string& to, co
 	const int fromId = this->nameToId.at(from);
 	const int toId = this->nameToId.at(to);
 
-	if (this->_graph.isConnected(fromId, toId))
+	if (this->_graph.areConnected(fromId, toId))
 	{
-		TransportType edge = this->_graph.getEdge(fromId, toId);
+		TransportType edge = this->_graph.removeEdge(fromId, toId);
 		edge = static_cast<TransportType>(edge | type);
-		this->_graph.setEdge(fromId, toId, edge);
+		this->_graph.addEdge(fromId, toId, edge);
 	}
 	else
 		this->_graph.addEdge(fromId, toId, type);
@@ -68,7 +68,7 @@ ds::Set<std::string> CityGraph::getNeighbors(const std::string& city) const
 	const int cityId = this->nameToId.at(city);
 	ds::Set<std::string> neighbors;
 
-	for (const auto neighborId : this->_graph.getNeighbors(cityId) | std::views::keys)
+	for (const auto neighborId : this->_graph.getEdges(cityId) | std::views::keys)
 	{
 		const Ville& neighbor = this->_graph.getNode(neighborId);
 		neighbors.insert(neighbor.nom);
