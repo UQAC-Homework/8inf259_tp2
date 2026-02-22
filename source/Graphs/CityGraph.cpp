@@ -62,7 +62,19 @@ void CityGraph::addRail(const std::string& from, const std::string& to)
 
 	if (fromHasRailway && toHasRailway)
 	{
-		// BOTH has railway
+		const int railwayID = this->railCities.at(fromID);
+		const int oldRailwayID = this->railCities.at(toID);
+
+		this->railways[railwayID].insert(toID);
+		this->railCities[toID] = railwayID;
+
+		auto oldRailway = this->railways[oldRailwayID];
+
+		oldRailway.erase(toID);
+
+		if (oldRailway.size() == 0)
+			this->railways.erase(oldRailwayID);
+
 		return;
 	}
 
