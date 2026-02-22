@@ -8,50 +8,19 @@
 #include "../../include/Ville.h"
 #include "../../include/utils/string.h"
 
-void CityGraph::addConnection(const std::string& from, const std::string& to, const TransportType type)
+ds::Set<int> CityGraph::getReachableByRoad(const int id) const
 {
-	if (!this->nameToId.contains(from))
-		throw std::logic_error("No city named '" + from + "' was added.");
-
-	if (!this->nameToId.contains(to))
-		throw std::logic_error("No city named '" + to + "' was added.");
-
-	const int fromId = this->nameToId.at(from);
-	const int toId = this->nameToId.at(to);
-
-	if (this->_graph.areConnected(fromId, toId))
-	{
-		TransportType edge = this->_graph.removeEdge(fromId, toId);
-		edge = static_cast<TransportType>(edge | type);
-		this->_graph.addEdge(fromId, toId, edge);
-	}
-	else
-		this->_graph.addEdge(fromId, toId, type);
+	return this->_graph.getEdges(id);
 }
 
-ds::Set<int> CityGraph::getCitiesAccessibleByRoad(const int id) const
-{
-	ds::Set<int> neighbors;
-
-	for (const auto [cityId, edgeType] : this->_graph.getEdges(id))
-	{
-		if (!(edgeType & ROAD))
-			continue;
-
-		neighbors.insert(cityId);
-	}
-
-	return neighbors;
-}
-
-ds::Set<int> CityGraph::getCitiesAccessibleByTrain(int id) const
+ds::Set<int> CityGraph::getReachableByTrain(int id) const
 {
 	ds::Set<int> neighbors;
 
 	return neighbors;
 }
 
-ds::Set<int> CityGraph::getCitiesAccessibleByBoat(int id) const
+ds::Set<int> CityGraph::getReachableByBoat(int id) const
 {
 	return this->boatCities;
 }
@@ -67,14 +36,24 @@ void CityGraph::addCity(const Ville& city)
 
 void CityGraph::addRoad(const std::string& from, const std::string& to)
 {
-	this->addConnection(from, to, ROAD);
-	this->addConnection(to, from, ROAD);
+	if (!this->nameToId.contains(from))
+		throw std::logic_error("No city named '" + from + "' was added.");
+
+	if (!this->nameToId.contains(to))
+		throw std::logic_error("No city named '" + to + "' was added.");
+
+	const int fromID = this->nameToId.at(from);
+	const int toID = this->nameToId.at(to);
+
+	if (this->_graph.areConnected(fromID, toID))
+		return;
+
+	this->_graph.addEdge(fromID, toID);
+	this->_graph.addEdge(toID, fromID);
 }
 
 void CityGraph::addRail(const std::string& from, const std::string& to)
 {
-	this->addConnection(from, to, TRAIN);
-	this->addConnection(to, from, TRAIN);
 }
 
 std::size_t CityGraph::getCityCount() const
@@ -92,7 +71,7 @@ ds::Set<std::string> CityGraph::getCityNames() const
 	return names;
 }
 
-ds::Set<std::string> CityGraph::getNeighbors(const std::string& city, TransportType allowedTypes) const
+ds::Set<std::string> CityGraph::getNeighbors(const std::string& city, const TransportType allowedTypes) const
 {
 	if (allowedTypes == NONE)
 	{
@@ -105,19 +84,19 @@ ds::Set<std::string> CityGraph::getNeighbors(const std::string& city, TransportT
 
 	if (allowedTypes & ROAD)
 	{
-		for (auto neighbor : this->getCitiesAccessibleByRoad(cityId))
+		for (auto neighbor : this->getReachableByRoad(cityId))
 			neighborsId.insert(neighbor);
 	}
 
 	if (allowedTypes & TRAIN)
 	{
-		for (auto neighbor : this->getCitiesAccessibleByTrain(cityId))
+		for (auto neighbor : this->getReachableByTrain(cityId))
 			neighborsId.insert(neighbor);
 	}
 
 	if (allowedTypes & BOAT && this->boatCities.contains(cityId))
 	{
-		for (auto neighbor : this->getCitiesAccessibleByBoat(cityId))
+		for (auto neighbor : this->getReachableByBoat(cityId))
 			neighborsId.insert(neighbor);
 	}
 
