@@ -29,6 +29,33 @@ void CityGraph::addConnection(const std::string& from, const std::string& to, co
 		this->_graph.addEdge(fromId, toId, type);
 }
 
+ds::Set<int> CityGraph::getCitiesAccessibleByRoad(const int id) const
+{
+	ds::Set<int> neighbors;
+
+	for (const auto [cityId, edgeType] : this->_graph.getEdges(id))
+	{
+		if (!(edgeType & ROAD))
+			continue;
+
+		neighbors.insert(cityId);
+	}
+
+	return neighbors;
+}
+
+ds::Set<int> CityGraph::getCitiesAccessibleByTrain(int id) const
+{
+	ds::Set<int> neighbors;
+
+	return neighbors;
+}
+
+ds::Set<int> CityGraph::getCitiesAccessibleByBoat(int id) const
+{
+	return this->boatCities;
+}
+
 void CityGraph::addCity(const Ville& city)
 {
 	const int id = this->_graph.addNode(city);

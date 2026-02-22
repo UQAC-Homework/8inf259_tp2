@@ -25,6 +25,15 @@ class CityGraph
 	/// Adds a connection of the given type between the cities with the given names 
 	void addConnection(const std::string& from, const std::string& to, TransportType type);
 
+	/// Gets all cities accessible by the given city by road
+	[[nodiscard]] ds::Set<int> getCitiesAccessibleByRoad(int id) const;
+
+	/// Gets all cities accessible by the given city by train
+	[[nodiscard]] ds::Set<int> getCitiesAccessibleByTrain(int id) const;
+
+	/// Gets all cities accessible by the given city by boat
+	[[nodiscard]] ds::Set<int> getCitiesAccessibleByBoat(int id) const;
+
 public:
 	/// Adds a city on the graph
 	void addCity(const Ville& city);
