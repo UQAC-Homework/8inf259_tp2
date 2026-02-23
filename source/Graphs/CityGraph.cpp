@@ -12,7 +12,7 @@ ds::Set<int> CityGraph::getReachableByRoad(const int id) const
 
 ds::Set<int> CityGraph::getReachableByTrain(const int id) const
 {
-	const int railwayId = this->railCities.at(id);
+	const auto railwayId = this->railCities.at(id);
 	return this->railways.at(railwayId);
 }
 
@@ -30,7 +30,7 @@ CityGraph::~CityGraph() = default;
 
 void CityGraph::addCity(const Ville& city)
 {
-	const int id = this->_graph.addNode(city);
+	const auto id = this->_graph.addNode(city);
 	this->nameToId.insert(city.nom, id);
 
 	if (city.port)
@@ -39,8 +39,8 @@ void CityGraph::addCity(const Ville& city)
 
 void CityGraph::addRoad(const std::string& from, const std::string& to)
 {
-	const int fromID = this->nameToId.at(from);
-	const int toID = this->nameToId.at(to);
+	const auto fromID = this->nameToId.at(from);
+	const auto toID = this->nameToId.at(to);
 
 	if (this->_graph.areConnected(fromID, toID))
 		return;
@@ -51,16 +51,16 @@ void CityGraph::addRoad(const std::string& from, const std::string& to)
 
 void CityGraph::addRail(const std::string& from, const std::string& to)
 {
-	const int fromID = this->nameToId.at(from);
-	const int toID = this->nameToId.at(to);
+	const auto fromID = this->nameToId.at(from);
+	const auto toID = this->nameToId.at(to);
 
-	const bool fromHasRailway = this->railCities.contains(fromID);
-	const bool toHasRailway = this->railCities.contains(toID);
+	const auto fromHasRailway = this->railCities.contains(fromID);
+	const auto toHasRailway = this->railCities.contains(toID);
 
 	if (fromHasRailway && toHasRailway)
 	{
-		const int railwayID = this->railCities.at(fromID);
-		const int oldRailwayID = this->railCities.at(toID);
+		const auto railwayID = this->railCities.at(fromID);
+		const auto oldRailwayID = this->railCities.at(toID);
 
 		this->railways[railwayID].insert(toID);
 		this->railCities[toID] = railwayID;
@@ -77,7 +77,7 @@ void CityGraph::addRail(const std::string& from, const std::string& to)
 
 	if (fromHasRailway)
 	{
-		const int railwayID = this->railCities.at(fromID);
+		const auto railwayID = this->railCities.at(fromID);
 		this->railways[railwayID].insert(toID);
 		this->railCities.insert(toID, railwayID);
 		return;
@@ -85,14 +85,14 @@ void CityGraph::addRail(const std::string& from, const std::string& to)
 
 	if (toHasRailway)
 	{
-		const int railwayID = this->railCities.at(toID);
+		const auto railwayID = this->railCities.at(toID);
 		this->railways[railwayID].insert(fromID);
 		this->railCities.insert(fromID, railwayID);
 		return;
 	}
 
 	// No railway
-	const int railwayID = this->_nextRailwayID;
+	const auto railwayID = this->_nextRailwayID;
 	this->_nextRailwayID++;
 
 	this->railCities.insert(fromID, railwayID);
@@ -112,7 +112,7 @@ std::size_t CityGraph::getCityCount() const
 
 std::size_t CityGraph::getRailsCount() const
 {
-	const std::size_t size = this->railCities.size();
+	const auto size = this->railCities.size();
 
 	if (size == 0)
 		return 0;
@@ -172,11 +172,11 @@ ds::Set<std::string> CityGraph::getNeighbors(const std::string& city, const Tran
 
 TransportMode CityGraph::getAvailableTransportModes(const std::string& from, const std::string& to) const
 {
-	const int fromID = this->nameToId.at(from);
-	const int toID = this->nameToId.at(to);
+	const auto fromID = this->nameToId.at(from);
+	const auto toID = this->nameToId.at(to);
 
-	const Ville& fromCity = this->_graph.getNode(fromID);
-	const Ville& toCity = this->_graph.getNode(toID);
+	const auto& fromCity = this->_graph.getNode(fromID);
+	const auto& toCity = this->_graph.getNode(toID);
 
 	TransportMode transportModes = NONE;
 

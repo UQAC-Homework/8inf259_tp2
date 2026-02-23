@@ -15,7 +15,7 @@ namespace ds
 	template <typename Node>
 	int Graph<Node>::addNode(Node value)
 	{
-		const int id = this->nextId;
+		const auto id = this->nextId;
 
 		this->nodes.insert(id, value);
 
