@@ -70,7 +70,6 @@ void Plateau::actionPlacerRail()
 	}
 
 	std::cout << "Veuillez choisir une ville où placer un rail:" << std::endl;
-	// TODO: Filter out cities that cannot have rails
 	const auto startCity = utils::menu::chooseCity(
 		std::cout,
 		std::cin,
@@ -84,6 +83,12 @@ void Plateau::actionPlacerRail()
 		std::cin,
 		this->_graph.getNeighbors(startCity, ROAD)
 	);
+
+	if (this->_graph.getAvailableTransportModes(startCity, endCity) & TRAIN)
+	{
+		std::cout << "Un rail existe déjà entre '" << startCity << "' et '" << endCity << "'." << std::endl;
+		return;
+	}
 
 	this->_graph.addRail(startCity, endCity);
 }
