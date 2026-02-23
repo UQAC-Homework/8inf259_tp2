@@ -127,7 +127,7 @@ void Plateau::actionPlusCourtChemin()
 		this->_graph,
 		startCity,
 		endCity,
-		static_cast<TransportType>(ROAD | TRAIN)
+		ROAD | TRAIN
 	);
 	const std::size_t roadAndRailsActionCount = roadAndRailsPath.size() - 1;
 
