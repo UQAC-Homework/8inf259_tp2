@@ -1,19 +1,10 @@
 #ifndef INC_8INF259_TP2_CITYGRAPH_H
 #define INC_8INF259_TP2_CITYGRAPH_H
+#include "../TransportMode.h"
 #include "../Ville.h"
 #include "../ds/Graph.h"
 #include "../ds/Map.h"
 #include "../ds/Set.h"
-
-/// Every possible transport type
-enum TransportType : char
-{
-	NONE = 0,
-	ROAD = 1,
-	TRAIN = 1 << 1,
-	BOAT = 1 << 2,
-	ALL = ROAD | TRAIN | BOAT
-};
 
 /// Graph that represents a network of cities
 class CityGraph
@@ -57,10 +48,10 @@ public:
 	[[nodiscard]] ds::Set<std::string> getCityNames() const;
 
 	/// Gets all the cities neighboring the given city 
-	[[nodiscard]] ds::Set<std::string> getNeighbors(const std::string& city, TransportType allowedTypes) const;
+	[[nodiscard]] ds::Set<std::string> getNeighbors(const std::string& city, TransportMode allowedModes) const;
 
 	/// Gets all the connections available between the given cities
-	[[nodiscard]] TransportType getAvailableTransportTypes(const std::string& from, const std::string& to) const;
+	[[nodiscard]] TransportMode getAvailableTransportModes(const std::string& from, const std::string& to) const;
 };
 
 

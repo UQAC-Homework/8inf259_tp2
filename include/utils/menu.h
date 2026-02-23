@@ -85,18 +85,18 @@ namespace utils::menu
 
 			if (i > 0)
 			{
-				const TransportType type = graph.getAvailableTransportTypes(
+				const auto mode = graph.getAvailableTransportModes(
 					path[i - 1],
 					path[i]
 				);
 				
-				if (type & ROAD)
+				if (mode & ROAD)
 				{
 					//output << " [ROUTE]";
 				}
-				else if (type & TRAIN)
+				else if (mode & TRAIN)
 					output << " [TRAIN]";
-				else if (type & BOAT)
+				else if (mode & BOAT)
 					output << " [MER]";
 			}
 

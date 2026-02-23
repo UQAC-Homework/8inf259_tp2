@@ -130,9 +130,9 @@ ds::Set<std::string> CityGraph::getCityNames() const
 	return names;
 }
 
-ds::Set<std::string> CityGraph::getNeighbors(const std::string& city, const TransportType allowedTypes) const
+ds::Set<std::string> CityGraph::getNeighbors(const std::string& city, const TransportMode allowedModes) const
 {
-	if (allowedTypes == NONE)
+	if (allowedModes == NONE)
 	{
 		static const ds::Set<std::string> empty;
 		return empty;
@@ -141,19 +141,19 @@ ds::Set<std::string> CityGraph::getNeighbors(const std::string& city, const Tran
 	const int cityId = this->nameToId.at(city);
 	ds::Set<int> neighborsId;
 
-	if (allowedTypes & ROAD)
+	if (allowedModes & ROAD)
 	{
 		for (auto neighbor : this->getReachableByRoad(cityId))
 			neighborsId.insert(neighbor);
 	}
 
-	if (allowedTypes & TRAIN && this->railCities.contains(cityId))
+	if (allowedModes & TRAIN && this->railCities.contains(cityId))
 	{
 		for (auto neighbor : this->getReachableByTrain(cityId))
 			neighborsId.insert(neighbor);
 	}
 
-	if (allowedTypes & BOAT && this->boatCities.contains(cityId))
+	if (allowedModes & BOAT && this->boatCities.contains(cityId))
 	{
 		for (auto neighbor : this->getReachableByBoat(cityId))
 			neighborsId.insert(neighbor);
@@ -170,7 +170,7 @@ ds::Set<std::string> CityGraph::getNeighbors(const std::string& city, const Tran
 	return neighborsName;
 }
 
-TransportType CityGraph::getAvailableTransportTypes(const std::string& from, const std::string& to) const
+TransportMode CityGraph::getAvailableTransportModes(const std::string& from, const std::string& to) const
 {
 	const int fromID = this->nameToId.at(from);
 	const int toID = this->nameToId.at(to);
@@ -178,16 +178,16 @@ TransportType CityGraph::getAvailableTransportTypes(const std::string& from, con
 	const Ville& fromCity = this->_graph.getNode(fromID);
 	const Ville& toCity = this->_graph.getNode(toID);
 
-	TransportType transportTypes = NONE;
+	TransportMode transportModes = NONE;
 
 	if (this->_graph.areConnected(fromID, toID))
-		transportTypes = static_cast<TransportType>(transportTypes | ROAD);
+		transportModes = transportModes | ROAD;
 
 	if (this->railCities.contains(fromID) && this->getReachableByTrain(fromID).contains(toID))
-		transportTypes = static_cast<TransportType>(transportTypes | TRAIN);
+		transportModes = transportModes | TRAIN;
 
 	if (fromCity.port && toCity.port)
-		transportTypes = static_cast<TransportType>(transportTypes | BOAT);
+		transportModes = transportModes | BOAT;
 
-	return transportTypes;
+	return transportModes;
 }

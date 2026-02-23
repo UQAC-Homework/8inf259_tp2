@@ -21,4 +21,6 @@ add_executable(8inf259_tp2 main.cpp
         source/ds/Graph.tpp
         include/exceptions/KeyNotFoundException.h
         include/utils/graph.h
+        include/TransportMode.h
+        source/TransportMode.cpp
 )

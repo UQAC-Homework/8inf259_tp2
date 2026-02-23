@@ -12,7 +12,7 @@ namespace utils::pathfinding
 		const CityGraph& graph,
 		const std::string& startCity,
 		const std::string& endCity,
-		const TransportType allowedTransports
+		const TransportMode allowedTransports
 	)
 	{
 		std::queue<std::string> citiesToVisit;
