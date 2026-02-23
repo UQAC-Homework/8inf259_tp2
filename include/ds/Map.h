@@ -34,7 +34,6 @@ namespace ds
 		/// Checks if the given key is present
 		[[nodiscard]] bool contains(const Key& key) const;
 
-		using iterator = std::map<Key, Value>::iterator;
 		using const_iterator = std::map<Key, Value>::const_iterator;
 
 		const_iterator begin() const;

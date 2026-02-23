@@ -29,7 +29,6 @@ namespace ds
 		/// Checks if this collection contains the given value
 		[[nodiscard]] bool contains(const T& value) const;
 
-		using iterator = std::set<T>::iterator;
 		using const_iterator = std::set<T>::const_iterator;
 
 		const_iterator begin() const;
