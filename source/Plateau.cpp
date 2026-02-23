@@ -40,7 +40,7 @@ bool Plateau::charger(const std::string& fichier)
 void Plateau::actionPlacerTroisCubes()
 {
 	std::cout << "Veuillez choisir une ville à infecter:" << std::endl;
-	const std::string city = utils::menu::chooseCity(
+	const auto city = utils::menu::chooseCity(
 		std::cout,
 		std::cin,
 		this->_graph.getCityNames()
@@ -52,7 +52,7 @@ void Plateau::actionPlacerTroisCubes()
 void Plateau::actionInfecter()
 {
 	std::cout << "Veuillez choisir une ville à infecter:" << std::endl;
-	const std::string city = utils::menu::chooseCity(
+	const auto city = utils::menu::chooseCity(
 		std::cout,
 		std::cin,
 		this->_graph.getCityNames()
@@ -71,7 +71,7 @@ void Plateau::actionPlacerRail()
 
 	std::cout << "Veuillez choisir une ville où placer un rail:" << std::endl;
 	// TODO: Filter out cities that cannot have rails
-	const std::string startCity = utils::menu::chooseCity(
+	const auto startCity = utils::menu::chooseCity(
 		std::cout,
 		std::cin,
 		this->_graph.getCityNames()
@@ -79,8 +79,7 @@ void Plateau::actionPlacerRail()
 
 	std::cout << std::endl;
 	std::cout << "Veuillez choisir où le rail se termine:" << std::endl;
-	// TODO: Prevent rails to be placed where rails already exist
-	const std::string endCity = utils::menu::chooseCity(
+	const auto endCity = utils::menu::chooseCity(
 		std::cout,
 		std::cin,
 		this->_graph.getNeighbors(startCity, ROAD)
@@ -91,10 +90,10 @@ void Plateau::actionPlacerRail()
 
 void Plateau::actionPlusCourtChemin()
 {
-	ds::Set<std::string> cities = this->_graph.getCityNames();
+	auto cities = this->_graph.getCityNames();
 
 	std::cout << "Veuillez choisir une ville de départ:" << std::endl;
-	const std::string startCity = utils::menu::chooseCity(
+	const auto startCity = utils::menu::chooseCity(
 		std::cout,
 		std::cin,
 		cities
@@ -104,7 +103,7 @@ void Plateau::actionPlusCourtChemin()
 
 	std::cout << std::endl;
 	std::cout << "Veuillez choisir une destination:" << std::endl;
-	const std::string endCity = utils::menu::chooseCity(
+	const auto endCity = utils::menu::chooseCity(
 		std::cout,
 		std::cin,
 		cities
@@ -112,24 +111,26 @@ void Plateau::actionPlusCourtChemin()
 
 	std::cout << "=== " << startCity << " -> " << endCity << " ===" << std::endl;
 
-	const std::vector<std::string> roadPath = utils::pathfinding::BFS(
+	// === ROAD ===
+	const auto roadPath = utils::pathfinding::BFS(
 		this->_graph,
 		startCity,
 		endCity,
 		ROAD
 	);
-	const std::size_t roadActionCount = roadPath.size() - 1;
+	const auto roadActionCount = roadPath.size() - 1;
 
 	std::cout << "[ROUTE] Terrestre uniquement (" << roadActionCount << " actions):" << std::endl;
 	utils::menu::displayPath(std::cout, roadPath, this->_graph);
 
-	const std::vector<std::string> roadAndRailsPath = utils::pathfinding::BFS(
+	// === ROAD + TRAIN ===
+	const auto roadAndRailsPath = utils::pathfinding::BFS(
 		this->_graph,
 		startCity,
 		endCity,
 		ROAD | TRAIN
 	);
-	const std::size_t roadAndRailsActionCount = roadAndRailsPath.size() - 1;
+	const auto roadAndRailsActionCount = roadAndRailsPath.size() - 1;
 
 	std::cout << std::endl;
 	std::cout << "[ROUTE + TRAIN] Terrestre + Rails (" << roadAndRailsActionCount << " actions):" << std::endl;
@@ -137,13 +138,14 @@ void Plateau::actionPlusCourtChemin()
 	std::cout << "=> Gain de " + std::to_string(roadActionCount - roadAndRailsActionCount) <<
 		" action(s) grâce aux rails!" << std::endl;
 
-	const std::vector<std::string> roadAndRailsAndBoatsPath = utils::pathfinding::BFS(
+	// === ALL ===
+	const auto roadAndRailsAndBoatsPath = utils::pathfinding::BFS(
 		this->_graph,
 		startCity,
 		endCity,
 		ALL
 	);
-	const std::size_t roadAndRailsAndBoatsActionCount = roadAndRailsAndBoatsPath.size() - 1;
+	const auto roadAndRailsAndBoatsActionCount = roadAndRailsAndBoatsPath.size() - 1;
 
 	std::cout << std::endl;
 	std::cout << "[TOUT] Terrestre + Rails + Mer (" << roadAndRailsAndBoatsActionCount << " actions):" << std::endl;
