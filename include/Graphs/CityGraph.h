@@ -3,17 +3,16 @@
 #include "../TransportMode.h"
 #include "../Ville.h"
 #include "../ds/Graph.h"
-#include "../ds/Map.h"
 #include "../ds/Set.h"
 
 /// Graph that represents a network of cities
 class CityGraph
 {
 	ds::Graph<Ville> _graph;
-	ds::Map<std::string, int> nameToId;
+	std::unordered_map<std::string, int> nameToId;
 	int _nextRailwayID;
-	ds::Map<int, int> railCities;
-	ds::Map<int, ds::Set<int>> railways;
+	std::unordered_map<int, int> railCities;
+	std::unordered_map<int, ds::Set<int>> railways;
 	ds::Set<int> boatCities;
 
 	/// Gets all cities reachable from the given city by road

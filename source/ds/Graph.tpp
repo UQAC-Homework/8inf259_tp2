@@ -1,4 +1,6 @@
 #pragma once
+#include <stdexcept>
+
 #include "../../include/ds/Graph.h"
 
 namespace ds
@@ -17,7 +19,7 @@ namespace ds
 	{
 		const auto id = this->nextId;
 
-		this->nodes.insert(id, value);
+		this->nodes[id] = value;
 
 		++this->nextId;
 
@@ -38,7 +40,7 @@ namespace ds
 				"An edge between '" + std::to_string(from) + "' and '" + std::to_string(to) + "' already exists.");
 
 		if (!this->edges.contains(from))
-			this->edges.insert(from, {});
+			this->edges[from] = {};
 
 		this->edges[from].insert(to);
 	}

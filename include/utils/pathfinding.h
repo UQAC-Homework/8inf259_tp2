@@ -17,7 +17,7 @@ namespace utils::pathfinding
 	{
 		std::queue<std::string> citiesToVisit;
 		ds::Set<std::string> citiesVisited;
-		ds::Map<std::string, std::string> citiesVisitedFrom;
+		std::unordered_map<std::string, std::string> citiesVisitedFrom;
 		bool hasFoundEnd = false;
 
 		citiesToVisit.push(startCity);
@@ -33,7 +33,7 @@ namespace utils::pathfinding
 				if (citiesVisited.contains(neighborCity))
 					continue;
 
-				citiesVisitedFrom.insert(neighborCity, currentCity);
+				citiesVisitedFrom[neighborCity] = currentCity;
 				citiesVisited.insert(neighborCity);
 				citiesToVisit.push(neighborCity);
 

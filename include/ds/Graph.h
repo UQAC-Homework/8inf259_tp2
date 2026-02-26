@@ -1,6 +1,7 @@
 #ifndef INC_8INF259_TP2_GRAPH_H
 #define INC_8INF259_TP2_GRAPH_H
-#include "Map.h"
+#include <unordered_map>
+
 #include "Set.h"
 
 namespace ds
@@ -9,8 +10,8 @@ namespace ds
 	class Graph
 	{
 		int nextId;
-		Map<int, Set<int>> edges;
-		Map<int, Node> nodes;
+		std::unordered_map<int, Set<int>> edges;
+		std::unordered_map<int, Node> nodes;
 
 	public:
 		Graph();

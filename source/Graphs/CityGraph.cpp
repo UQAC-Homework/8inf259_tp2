@@ -31,7 +31,7 @@ CityGraph::~CityGraph() = default;
 void CityGraph::addCity(const Ville& city)
 {
 	const auto id = this->_graph.addNode(city);
-	this->nameToId.insert(city.nom, id);
+	this->nameToId[city.nom] = id;
 
 	if (city.port)
 		this->boatCities.insert(id);
@@ -79,7 +79,7 @@ void CityGraph::addRail(const std::string& from, const std::string& to)
 	{
 		const auto railwayID = this->railCities.at(fromID);
 		this->railways[railwayID].insert(toID);
-		this->railCities.insert(toID, railwayID);
+		this->railCities[toID] = railwayID;
 		return;
 	}
 
@@ -87,7 +87,7 @@ void CityGraph::addRail(const std::string& from, const std::string& to)
 	{
 		const auto railwayID = this->railCities.at(toID);
 		this->railways[railwayID].insert(fromID);
-		this->railCities.insert(fromID, railwayID);
+		this->railCities[fromID] = railwayID;
 		return;
 	}
 
@@ -95,14 +95,14 @@ void CityGraph::addRail(const std::string& from, const std::string& to)
 	const auto railwayID = this->_nextRailwayID;
 	this->_nextRailwayID++;
 
-	this->railCities.insert(fromID, railwayID);
-	this->railCities.insert(toID, railwayID);
+	this->railCities[fromID] = railwayID;
+	this->railCities[toID] = railwayID;
 
 	ds::Set<int> newRailway;
 	newRailway.insert(fromID);
 	newRailway.insert(toID);
 
-	this->railways.insert(railwayID, newRailway);
+	this->railways[railwayID] = newRailway;
 }
 
 std::size_t CityGraph::getCityCount() const
