@@ -148,7 +148,7 @@ void Plateau::actionPlusCourtChemin()
 		this->_graph,
 		startCity,
 		endCity,
-		ALL
+		ROAD | TRAIN | BOAT
 	);
 	const auto roadAndRailsAndBoatsActionCount = roadAndRailsAndBoatsPath.size() - 1;
 

@@ -8,7 +8,6 @@ enum TransportMode : unsigned char
 	ROAD = 1,
 	TRAIN = 1 << 1,
 	BOAT = 1 << 2,
-	ALL = ROAD | TRAIN | BOAT
 };
 
 /// Gets the combination of the modes
