@@ -9,7 +9,7 @@ int main(const int argc, char* argv[])
 	SetConsoleOutputCP(CP_UTF8);
 #endif
 	
-	std::string file = "../board.txt";
+	std::string file = "board.txt";
 
 	if (argc > 1)
 		file = argv[1];
