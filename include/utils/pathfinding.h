@@ -16,7 +16,7 @@ namespace utils::pathfinding
 	)
 	{
 		std::queue<std::string> citiesToVisit;
-		ds::Set<std::string> citiesVisited;
+		std::set<std::string> citiesVisited;
 		std::unordered_map<std::string, std::string> citiesVisitedFrom;
 		bool hasFoundEnd = false;
 

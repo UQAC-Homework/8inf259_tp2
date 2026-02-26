@@ -12,8 +12,6 @@ add_executable(8inf259_tp2 main.cpp
         include/utils/menu.h
         source/Graphs/CityGraph.cpp
         include/Graphs/CityGraph.h
-        source/ds/Set.tpp
-        include/ds/Set.h
         include/utils/pathfinding.h
         include/ds/Graph.h
         source/ds/Graph.tpp

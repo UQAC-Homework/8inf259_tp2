@@ -5,18 +5,18 @@
 #include <fstream>
 #include <ranges>
 
-ds::Set<int> CityGraph::getReachableByRoad(const int id) const
+std::set<int> CityGraph::getReachableByRoad(const int id) const
 {
 	return this->_graph.getEdges(id);
 }
 
-ds::Set<int> CityGraph::getReachableByTrain(const int id) const
+std::set<int> CityGraph::getReachableByTrain(const int id) const
 {
 	const auto railwayId = this->railCities.at(id);
 	return this->railways.at(railwayId);
 }
 
-ds::Set<int> CityGraph::getReachableByBoat(int id) const
+std::set<int> CityGraph::getReachableByBoat(int id) const
 {
 	return this->boatCities;
 }
@@ -98,7 +98,7 @@ void CityGraph::addRail(const std::string& from, const std::string& to)
 	this->railCities[fromID] = railwayID;
 	this->railCities[toID] = railwayID;
 
-	ds::Set<int> newRailway;
+	std::set<int> newRailway;
 	newRailway.insert(fromID);
 	newRailway.insert(toID);
 
@@ -120,9 +120,9 @@ std::size_t CityGraph::getRailsCount() const
 	return size - 1;
 }
 
-ds::Set<std::string> CityGraph::getCityNames() const
+std::set<std::string> CityGraph::getCityNames() const
 {
-	ds::Set<std::string> names;
+	std::set<std::string> names;
 
 	for (const auto& name : this->nameToId | std::views::keys)
 		names.insert(name);
@@ -130,16 +130,16 @@ ds::Set<std::string> CityGraph::getCityNames() const
 	return names;
 }
 
-ds::Set<std::string> CityGraph::getNeighbors(const std::string& city, const TransportMode allowedModes) const
+std::set<std::string> CityGraph::getNeighbors(const std::string& city, const TransportMode allowedModes) const
 {
 	if (allowedModes == NONE)
 	{
-		static const ds::Set<std::string> empty;
+		static const std::set<std::string> empty;
 		return empty;
 	}
 
 	const int cityId = this->nameToId.at(city);
-	ds::Set<int> neighborsId;
+	std::set<int> neighborsId;
 
 	if (allowedModes & ROAD)
 	{
@@ -159,7 +159,7 @@ ds::Set<std::string> CityGraph::getNeighbors(const std::string& city, const Tran
 			neighborsId.insert(neighbor);
 	}
 
-	ds::Set<std::string> neighborsName;
+	std::set<std::string> neighborsName;
 
 	for (const auto neighborId : neighborsId)
 	{

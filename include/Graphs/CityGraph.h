@@ -3,7 +3,6 @@
 #include "../TransportMode.h"
 #include "../Ville.h"
 #include "../ds/Graph.h"
-#include "../ds/Set.h"
 
 /// Graph that represents a network of cities
 class CityGraph
@@ -12,17 +11,17 @@ class CityGraph
 	std::unordered_map<std::string, int> nameToId;
 	int _nextRailwayID;
 	std::unordered_map<int, int> railCities;
-	std::unordered_map<int, ds::Set<int>> railways;
-	ds::Set<int> boatCities;
+	std::unordered_map<int, std::set<int>> railways;
+	std::set<int> boatCities;
 
 	/// Gets all cities reachable from the given city by road
-	[[nodiscard]] ds::Set<int> getReachableByRoad(int id) const;
+	[[nodiscard]] std::set<int> getReachableByRoad(int id) const;
 
 	/// Gets all cities reachable from the given city by train
-	[[nodiscard]] ds::Set<int> getReachableByTrain(int id) const;
+	[[nodiscard]] std::set<int> getReachableByTrain(int id) const;
 
 	/// Gets all cities reachable from the given city by boat
-	[[nodiscard]] ds::Set<int> getReachableByBoat(int id) const;
+	[[nodiscard]] std::set<int> getReachableByBoat(int id) const;
 
 public:
 	CityGraph();
@@ -44,10 +43,10 @@ public:
 	[[nodiscard]] std::size_t getRailsCount() const;
 
 	/// Gets all the cities by name
-	[[nodiscard]] ds::Set<std::string> getCityNames() const;
+	[[nodiscard]] std::set<std::string> getCityNames() const;
 
 	/// Gets all the cities neighboring the given city 
-	[[nodiscard]] ds::Set<std::string> getNeighbors(const std::string& city, TransportMode allowedModes) const;
+	[[nodiscard]] std::set<std::string> getNeighbors(const std::string& city, TransportMode allowedModes) const;
 
 	/// Gets all the connections available between the given cities
 	[[nodiscard]] TransportMode getAvailableTransportModes(const std::string& from, const std::string& to) const;

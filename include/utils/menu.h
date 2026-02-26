@@ -44,7 +44,7 @@ namespace utils::menu
 	inline std::string chooseCity(
 		std::ostream& output,
 		std::istream& input,
-		const ds::Set<std::string>& cities
+		const std::set<std::string>& cities
 	)
 	{
 		std::vector<std::string> cityNames;

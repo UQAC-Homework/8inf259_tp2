@@ -61,12 +61,12 @@ namespace ds
 	}
 
 	template <typename Node>
-	const Set<int>& Graph<Node>::getEdges(const int node) const
+	const std::set<int>& Graph<Node>::getEdges(const int node) const
 	{
 		if (this->edges.contains(node))
 			return this->edges.at(node);
 
-		static const Set<int> empty;
+		static const std::set<int> empty;
 		return empty;
 	}
 

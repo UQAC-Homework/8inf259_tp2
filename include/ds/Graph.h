@@ -1,8 +1,7 @@
 #ifndef INC_8INF259_TP2_GRAPH_H
 #define INC_8INF259_TP2_GRAPH_H
+#include <set>
 #include <unordered_map>
-
-#include "Set.h"
 
 namespace ds
 {
@@ -10,7 +9,7 @@ namespace ds
 	class Graph
 	{
 		int nextId;
-		std::unordered_map<int, Set<int>> edges;
+		std::unordered_map<int, std::set<int>> edges;
 		std::unordered_map<int, Node> nodes;
 
 	public:
@@ -33,7 +32,7 @@ namespace ds
 		[[nodiscard]] bool areConnected(int from, int to) const;
 
 		/// Gets the edges connected to the given node
-		[[nodiscard]] const Set<int>& getEdges(int node) const;
+		[[nodiscard]] const std::set<int>& getEdges(int node) const;
 
 		/// Gets the amount of nodes on the graph
 		[[nodiscard]] std::size_t size() const;
