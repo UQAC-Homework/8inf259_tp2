@@ -20,7 +20,7 @@ namespace ds
 		int addNode(Node value);
 
 		/// Gets the value of the given node
-		const Node& getNode(int id) const;
+		[[nodiscard]] const Node& getNode(int id) const;
 
 		/// Adds an edge between the given nodes
 		void addEdge(int from, int to);
