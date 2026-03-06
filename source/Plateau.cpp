@@ -11,7 +11,14 @@
 #include "../include/utils/menu.h"
 #include "../include/utils/pathfinding.h"
 
-Plateau::Plateau() = default;
+#define MAX_RAIL_COUNT 20
+#define MAX_ECLOSION_COUNT 8
+
+Plateau::Plateau()
+{
+	this->_graph = {};
+	this->_currentEclosionCount = 0;
+}
 
 bool Plateau::charger(const std::string& fichier)
 {
@@ -61,15 +68,27 @@ void Plateau::actionInfecter()
 		std::cin,
 		this->_graph.getCityNames()
 	);
+	auto& city = this->_graph.getCity(cityName);
 
-	throw std::logic_error("Not Implemented");
+	if (city.totalCubes() >= 3)
+	{
+		std::cout << city.nom << " est deja a 3 cubes total -> ECLOSION!" << std::endl;
+		this->_currentEclosionCount = utils::cities::solveEclosion(
+			this->_graph,
+			city,
+			this->_currentEclosionCount
+		);
+	}
+	else
+		utils::cities::addBlock(city, city);
+	
 }
 
 void Plateau::actionPlacerRail()
 {
-	if (this->_graph.getRailsCount() >= 20)
+	if (this->_graph.getRailsCount() >= MAX_RAIL_COUNT)
 	{
-		std::cout << "La limite de 20 rails a déjà été atteinte." << std::endl;
+		std::cout << "La limite de " << MAX_RAIL_COUNT << " rails a déjà été atteinte." << std::endl;
 		return;
 	}
 
@@ -166,6 +185,8 @@ void Plateau::actionPlusCourtChemin()
 void Plateau::afficherEtat()
 {
 	std::cout << "=== Etat du Plateau ===" << std::endl;
+	std::cout << "Eclosion : " << this->_currentEclosionCount << " / " << MAX_ECLOSION_COUNT << std::endl;
+	std::cout << "Rails    : " << this->_graph.getRailsCount() << " / " << MAX_RAIL_COUNT << std::endl;
 
 	for (auto cityName : this->_graph.getCityNames())
 	{
@@ -196,6 +217,12 @@ void Plateau::menu()
 
 	while (true)
 	{
+		if (this->_currentEclosionCount >= MAX_ECLOSION_COUNT)
+		{
+			std::cout << "Partie perdue!" << std::endl;
+			return;
+		}
+
 		const int choice = utils::menu::askChoice(std::cout, std::cin, options);
 
 		switch (choice)

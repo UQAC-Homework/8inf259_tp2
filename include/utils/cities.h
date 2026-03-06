@@ -1,5 +1,7 @@
 #ifndef INC_8INF259_TP2_CITIES_H
 #define INC_8INF259_TP2_CITIES_H
+#include <queue>
+
 #include "../Ville.h"
 
 namespace utils::cities
@@ -31,6 +33,53 @@ namespace utils::cities
 			return "Malaria";
 		
 		return color;
+	}
+	
+	/// Starts to solve the eclosions from the given city
+	inline std::size_t solveEclosion(CityGraph& graph, const Ville& city, std::size_t currentEclosionCount)
+	{
+		std::set<std::string> infectedCities;
+		std::queue<std::string> citiesToProcess;
+		citiesToProcess.push(city.nom);
+		infectedCities.insert(city.nom);
+		
+		while (!citiesToProcess.empty())
+		{
+			const auto currentName = citiesToProcess.front();
+			citiesToProcess.pop();
+			
+			auto currentCity = graph.getCity(currentName);
+			
+			currentEclosionCount++;
+			std::cout << "** ECLOSION #" << currentEclosionCount << " a " << currentCity.nom << " (" << getColorName(currentCity.couleur) << ")" << std::endl;
+
+			for (auto neighbor : graph.getNeighbors(currentCity.nom, ROAD))
+			{
+				std::cout << "|-- " << neighbor << " : ";
+				
+				if (infectedCities.contains(neighbor))
+				{
+					std::cout << "ignore (deja en eclosion)" << std::endl;
+					continue;
+				}
+				
+				auto& neighborCity = graph.getCity(neighbor);
+				
+				if (neighborCity.totalCubes() >= 3)
+				{
+					std::cout << neighborCity.totalCubes() << " cubes total -> eclosion en chaine !" << std::endl;
+					infectedCities.insert(neighbor);
+					citiesToProcess.push(neighbor);
+					continue;
+				}
+					
+				std::cout << neighborCity.totalCubes() << " -> ";
+				addBlock(currentCity, neighborCity);
+				std::cout << neighborCity.totalCubes() << std::endl;
+			}
+		}
+		
+		return currentEclosionCount;
 	}
 }
 

@@ -5,6 +5,7 @@
 class Plateau
 {
 	CityGraph _graph;
+	std::size_t _currentEclosionCount;
 
 public:
 	Plateau();
