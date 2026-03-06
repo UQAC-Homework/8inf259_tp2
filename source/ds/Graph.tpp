@@ -33,6 +33,12 @@ namespace ds
 	}
 
 	template <typename Node>
+	Node& Graph<Node>::getNode(int id)
+	{
+		return this->nodes[id];
+	}
+
+	template <typename Node>
 	void Graph<Node>::addEdge(int from, int to)
 	{
 		if (this->areConnected(from, to))

@@ -22,6 +22,9 @@ namespace ds
 		/// Gets the value of the given node
 		[[nodiscard]] const Node& getNode(int id) const;
 
+		/// Gets the value of the given node
+		[[nodiscard]] Node& getNode(int id);
+
 		/// Adds an edge between the given nodes
 		void addEdge(int from, int to);
 
