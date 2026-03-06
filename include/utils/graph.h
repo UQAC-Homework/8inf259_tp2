@@ -12,19 +12,15 @@ namespace utils::graph
 	/// Loads the graph from the given stream
 	inline CityGraph loadGraphFromStream(std::istream& stream)
 	{
-		// ReSharper disable CppTooWideScopeInitStatement
-		// ReSharper disable CppTooWideScope
-		constexpr char COMMENT_CHAR = '#';
-		constexpr char DIVIDER_CHAR = ';';
-		constexpr char CITY_START[] = "VILLES";
-		constexpr char LINKS_START[] = "LIENS";
-		// ReSharper restore CppTooWideScopeInitStatement
-		// ReSharper restore CppTooWideScope
+		#define COMMENT_CHAR '#'
+		#define DIVIDER_CHAR ';'
+		#define CITY_START "VILLES"
+		#define LINKS_START "LIENS"
 
 		CityGraph graph;
 
-		bool processingCities = false;
-		bool processingLinks = false;
+		bool processing_cities = false;
+		bool processing_links = false;
 
 		std::string line;
 		while (std::getline(stream, line))
@@ -39,24 +35,24 @@ namespace utils::graph
 
 			if (line == CITY_START)
 			{
-				processingCities = true;
-				processingLinks = false;
+				processing_cities = true;
+				processing_links = false;
 				continue;
 			}
 
 			if (line == LINKS_START)
 			{
-				processingCities = false;
-				processingLinks = true;
+				processing_cities = false;
+				processing_links = true;
 				continue;
 			}
 
-			if (!processingCities && !processingLinks)
+			if (!processing_cities && !processing_links)
 				throw std::logic_error("Unhandled line: " + line);
 
-			assert((!processingCities && processingLinks) || (processingCities && !processingLinks));
+			assert((!processing_cities && processing_links) || (processing_cities && !processing_links));
 
-			if (processingCities)
+			if (processing_cities)
 			{
 				const std::vector<std::string> tokens = string::split(line, DIVIDER_CHAR);
 
@@ -65,9 +61,9 @@ namespace utils::graph
 
 				const std::string& name = tokens.at(0);
 				const std::string& color = tokens.at(1);
-				const std::string& isPort = tokens.at(2);
+				const std::string& is_port = tokens.at(2);
 
-				const Ville city(name, color, isPort == "1");
+				const Ville city(name, color, is_port == "1");
 				graph.addCity(city);
 			}
 			else

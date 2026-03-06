@@ -8,7 +8,7 @@ int main(const int argc, char* argv[])
 #ifdef _WIN32
 	SetConsoleOutputCP(CP_UTF8);
 #endif
-	
+
 	std::string file = "board.txt";
 
 	if (argc > 1)

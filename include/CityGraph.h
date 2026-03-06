@@ -8,11 +8,11 @@
 class CityGraph
 {
 	ds::Graph<Ville> _graph;
-	std::unordered_map<std::string, int> nameToId;
-	int _nextRailwayID;
-	std::unordered_map<int, int> railCities;
-	std::unordered_map<int, std::set<int>> railways;
-	std::set<int> boatCities;
+	std::unordered_map<std::string, int> _nameToId;
+	int _nextRailwayId;
+	std::unordered_map<int, int> _railCities;
+	std::unordered_map<int, std::set<int>> _railways;
+	std::set<int> _boatCities;
 
 	/// Gets all cities reachable from the given city by road
 	[[nodiscard]] std::set<int> getReachableByRoad(int id) const;
@@ -21,7 +21,7 @@ class CityGraph
 	[[nodiscard]] std::set<int> getReachableByTrain(int id) const;
 
 	/// Gets all cities reachable from the given city by boat
-	[[nodiscard]] std::set<int> getReachableByBoat(int id) const;
+	[[nodiscard]] std::set<int> getReachableByBoat() const;
 
 public:
 	CityGraph();
@@ -52,7 +52,7 @@ public:
 	[[nodiscard]] Ville& getCity(const std::string& name);
 
 	/// Gets all the cities neighboring the given city 
-	[[nodiscard]] std::set<std::string> getNeighbors(const std::string& city, TransportMode allowedModes) const;
+	[[nodiscard]] std::set<std::string> getNeighbors(const std::string& city, TransportMode allowed_modes) const;
 
 	/// Gets all the connections available between the given cities
 	[[nodiscard]] TransportMode getAvailableTransportModes(const std::string& from, const std::string& to) const;

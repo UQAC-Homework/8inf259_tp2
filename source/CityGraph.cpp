@@ -12,18 +12,18 @@ std::set<int> CityGraph::getReachableByRoad(const int id) const
 
 std::set<int> CityGraph::getReachableByTrain(const int id) const
 {
-	const auto railwayId = this->railCities.at(id);
-	return this->railways.at(railwayId);
+	const auto railway_id = this->_railCities.at(id);
+	return this->_railways.at(railway_id);
 }
 
-std::set<int> CityGraph::getReachableByBoat(int id) const
+std::set<int> CityGraph::getReachableByBoat() const
 {
-	return this->boatCities;
+	return this->_boatCities;
 }
 
 CityGraph::CityGraph()
 {
-	this->_nextRailwayID = 0;
+	this->_nextRailwayId = 0;
 }
 
 CityGraph::~CityGraph() = default;
@@ -31,78 +31,78 @@ CityGraph::~CityGraph() = default;
 void CityGraph::addCity(const Ville& city)
 {
 	const auto id = this->_graph.addNode(city);
-	this->nameToId[city.nom] = id;
+	this->_nameToId[city.nom] = id;
 
 	if (city.port)
-		this->boatCities.insert(id);
+		this->_boatCities.insert(id);
 }
 
 void CityGraph::addRoad(const std::string& from, const std::string& to)
 {
-	const auto fromID = this->nameToId.at(from);
-	const auto toID = this->nameToId.at(to);
+	const auto from_id = this->_nameToId.at(from);
+	const auto to_id = this->_nameToId.at(to);
 
-	if (this->_graph.hasEdge(fromID, toID))
+	if (this->_graph.hasEdge(from_id, to_id))
 		return;
 
-	this->_graph.addEdge(fromID, toID);
-	this->_graph.addEdge(toID, fromID);
+	this->_graph.addEdge(from_id, to_id);
+	this->_graph.addEdge(to_id, from_id);
 }
 
 void CityGraph::addRail(const std::string& from, const std::string& to)
 {
-	const auto fromID = this->nameToId.at(from);
-	const auto toID = this->nameToId.at(to);
+	const auto from_id = this->_nameToId.at(from);
+	const auto to_id = this->_nameToId.at(to);
 
-	const auto fromHasRailway = this->railCities.contains(fromID);
-	const auto toHasRailway = this->railCities.contains(toID);
+	const auto from_has_railway = this->_railCities.contains(from_id);
+	const auto to_has_railway = this->_railCities.contains(to_id);
 
-	if (fromHasRailway && toHasRailway)
+	if (from_has_railway && to_has_railway)
 	{
-		const auto railwayID = this->railCities.at(fromID);
-		const auto oldRailwayID = this->railCities.at(toID);
+		const auto railway_id = this->_railCities.at(from_id);
+		const auto old_railway_id = this->_railCities.at(to_id);
 
-		this->railways[railwayID].insert(toID);
-		this->railCities[toID] = railwayID;
+		this->_railways[railway_id].insert(to_id);
+		this->_railCities[to_id] = railway_id;
 
-		auto oldRailway = this->railways[oldRailwayID];
+		auto old_railway = this->_railways[old_railway_id];
 
-		oldRailway.erase(toID);
+		old_railway.erase(to_id);
 
-		if (oldRailway.size() == 0)
-			this->railways.erase(oldRailwayID);
+		if (old_railway.size() == 0)
+			this->_railways.erase(old_railway_id);
 
 		return;
 	}
 
-	if (fromHasRailway)
+	if (from_has_railway)
 	{
-		const auto railwayID = this->railCities.at(fromID);
-		this->railways[railwayID].insert(toID);
-		this->railCities[toID] = railwayID;
+		const auto railway_id = this->_railCities.at(from_id);
+		this->_railways[railway_id].insert(to_id);
+		this->_railCities[to_id] = railway_id;
 		return;
 	}
 
-	if (toHasRailway)
+	if (to_has_railway)
 	{
-		const auto railwayID = this->railCities.at(toID);
-		this->railways[railwayID].insert(fromID);
-		this->railCities[fromID] = railwayID;
+		const auto railway_id = this->_railCities.at(to_id);
+		this->_railways[railway_id].insert(from_id);
+		this->_railCities[from_id] = railway_id;
 		return;
 	}
 
 	// No railway
-	const auto railwayID = this->_nextRailwayID;
-	this->_nextRailwayID++;
+	const auto railway_id = this->_nextRailwayId;
+	this->_nextRailwayId++;
 
-	this->railCities[fromID] = railwayID;
-	this->railCities[toID] = railwayID;
+	this->_railCities[from_id] = railway_id;
+	this->_railCities[to_id] = railway_id;
 
-	std::set<int> newRailway;
-	newRailway.insert(fromID);
-	newRailway.insert(toID);
+	std::set<int> new_railway;
+	new_railway.insert(from_id);
+	new_railway.insert(to_id);
 
-	this->railways[railwayID] = newRailway;
+	this->_railways[railway_id] = new_railway;
 }
 
 std::size_t CityGraph::getCityCount() const
@@ -112,7 +112,7 @@ std::size_t CityGraph::getCityCount() const
 
 std::size_t CityGraph::getRailsCount() const
 {
-	const auto size = this->railCities.size();
+	const auto size = this->_railCities.size();
 
 	if (size == 0)
 		return 0;
@@ -124,7 +124,7 @@ std::set<std::string> CityGraph::getCityNames() const
 {
 	std::set<std::string> names;
 
-	for (const auto& name : this->nameToId | std::views::keys)
+	for (const auto& name : this->_nameToId | std::views::keys)
 		names.insert(name);
 
 	return names;
@@ -132,74 +132,74 @@ std::set<std::string> CityGraph::getCityNames() const
 
 const Ville& CityGraph::getCity(const std::string& name) const
 {
-	const int cityId = this->nameToId.at(name);
-	return this->_graph.getNode(cityId);
+	const int city_id = this->_nameToId.at(name);
+	return this->_graph.getNode(city_id);
 }
 
 Ville& CityGraph::getCity(const std::string& name)
 {
-	const int cityId = this->nameToId.at(name);
-	return this->_graph.getNode(cityId);
+	const int city_id = this->_nameToId.at(name);
+	return this->_graph.getNode(city_id);
 }
 
-std::set<std::string> CityGraph::getNeighbors(const std::string& city, const TransportMode allowedModes) const
+std::set<std::string> CityGraph::getNeighbors(const std::string& city, const TransportMode allowed_modes) const
 {
-	if (allowedModes == NONE)
+	if (allowed_modes == NONE)
 	{
-		static const std::set<std::string> empty;
-		return empty;
+		static const std::set<std::string> EMPTY;
+		return EMPTY;
 	}
 
-	const int cityId = this->nameToId.at(city);
-	std::set<int> neighborsId;
+	const int city_id = this->_nameToId.at(city);
+	std::set<int> neighbors_id;
 
-	if (allowedModes & ROAD)
+	if (allowed_modes & ROAD)
 	{
-		for (auto neighbor : this->getReachableByRoad(cityId))
-			neighborsId.insert(neighbor);
+		for (auto neighbor : this->getReachableByRoad(city_id))
+			neighbors_id.insert(neighbor);
 	}
 
-	if (allowedModes & TRAIN && this->railCities.contains(cityId))
+	if (allowed_modes & TRAIN && this->_railCities.contains(city_id))
 	{
-		for (auto neighbor : this->getReachableByTrain(cityId))
-			neighborsId.insert(neighbor);
+		for (auto neighbor : this->getReachableByTrain(city_id))
+			neighbors_id.insert(neighbor);
 	}
 
-	if (allowedModes & BOAT && this->boatCities.contains(cityId))
+	if (allowed_modes & BOAT && this->_boatCities.contains(city_id))
 	{
-		for (auto neighbor : this->getReachableByBoat(cityId))
-			neighborsId.insert(neighbor);
+		for (auto neighbor : this->getReachableByBoat())
+			neighbors_id.insert(neighbor);
 	}
 
-	std::set<std::string> neighborsName;
+	std::set<std::string> neighbors_name;
 
-	for (const auto neighborId : neighborsId)
+	for (const auto neighbor_id : neighbors_id)
 	{
-		const Ville& neighbor = this->_graph.getNode(neighborId);
-		neighborsName.insert(neighbor.nom);
+		const Ville& neighbor = this->_graph.getNode(neighbor_id);
+		neighbors_name.insert(neighbor.nom);
 	}
 
-	return neighborsName;
+	return neighbors_name;
 }
 
 TransportMode CityGraph::getAvailableTransportModes(const std::string& from, const std::string& to) const
 {
-	const auto fromID = this->nameToId.at(from);
-	const auto toID = this->nameToId.at(to);
+	const auto from_id = this->_nameToId.at(from);
+	const auto to_id = this->_nameToId.at(to);
 
-	const auto& fromCity = this->_graph.getNode(fromID);
-	const auto& toCity = this->_graph.getNode(toID);
+	const auto& from_city = this->_graph.getNode(from_id);
+	const auto& to_city = this->_graph.getNode(to_id);
 
-	TransportMode transportModes = NONE;
+	TransportMode transport_modes = NONE;
 
-	if (this->_graph.hasEdge(fromID, toID))
-		transportModes = transportModes | ROAD;
+	if (this->_graph.hasEdge(from_id, to_id))
+		transport_modes = transport_modes | ROAD;
 
-	if (this->railCities.contains(fromID) && this->getReachableByTrain(fromID).contains(toID))
-		transportModes = transportModes | TRAIN;
+	if (this->_railCities.contains(from_id) && this->getReachableByTrain(from_id).contains(to_id))
+		transport_modes = transport_modes | TRAIN;
 
-	if (fromCity.port && toCity.port)
-		transportModes = transportModes | BOAT;
+	if (from_city.port && to_city.port)
+		transport_modes = transport_modes | BOAT;
 
-	return transportModes;
+	return transport_modes;
 }

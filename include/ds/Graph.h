@@ -8,9 +8,9 @@ namespace ds
 	template <typename Node>
 	class Graph
 	{
-		int nextId;
-		std::unordered_map<int, std::set<int>> edges;
-		std::unordered_map<int, Node> nodes;
+		int _nextId;
+		std::unordered_map<int, std::set<int>> _edges;
+		std::unordered_map<int, Node> _nodes;
 
 	public:
 		Graph();

@@ -63,12 +63,12 @@ void Plateau::actionPlacerTroisCubes()
 void Plateau::actionInfecter()
 {
 	std::cout << "Veuillez choisir une ville à infecter:" << std::endl;
-	const auto cityName = utils::menu::chooseCity(
+	const auto city_name = utils::menu::chooseCity(
 		std::cout,
 		std::cin,
 		this->_graph.getCityNames()
 	);
-	auto& city = this->_graph.getCity(cityName);
+	auto& city = this->_graph.getCity(city_name);
 
 	if (city.totalCubes() >= 3)
 	{
@@ -81,7 +81,6 @@ void Plateau::actionInfecter()
 	}
 	else
 		utils::cities::addBlock(city, city);
-	
 }
 
 void Plateau::actionPlacerRail()
@@ -93,7 +92,7 @@ void Plateau::actionPlacerRail()
 	}
 
 	std::cout << "Veuillez choisir une ville où placer un rail:" << std::endl;
-	const auto startCity = utils::menu::chooseCity(
+	const auto start_city = utils::menu::chooseCity(
 		std::cout,
 		std::cin,
 		this->_graph.getCityNames()
@@ -101,19 +100,19 @@ void Plateau::actionPlacerRail()
 
 	std::cout << std::endl;
 	std::cout << "Veuillez choisir où le rail se termine:" << std::endl;
-	const auto endCity = utils::menu::chooseCity(
+	const auto end_city = utils::menu::chooseCity(
 		std::cout,
 		std::cin,
-		this->_graph.getNeighbors(startCity, ROAD)
+		this->_graph.getNeighbors(start_city, ROAD)
 	);
 
-	if (this->_graph.getAvailableTransportModes(startCity, endCity) & TRAIN)
+	if (this->_graph.getAvailableTransportModes(start_city, end_city) & TRAIN)
 	{
-		std::cout << "Un rail existe déjà entre '" << startCity << "' et '" << endCity << "'." << std::endl;
+		std::cout << "Un rail existe déjà entre '" << start_city << "' et '" << end_city << "'." << std::endl;
 		return;
 	}
 
-	this->_graph.addRail(startCity, endCity);
+	this->_graph.addRail(start_city, end_city);
 }
 
 void Plateau::actionPlusCourtChemin()
@@ -121,64 +120,65 @@ void Plateau::actionPlusCourtChemin()
 	auto cities = this->_graph.getCityNames();
 
 	std::cout << "Veuillez choisir une ville de départ:" << std::endl;
-	const auto startCity = utils::menu::chooseCity(
+	const auto start_city = utils::menu::chooseCity(
 		std::cout,
 		std::cin,
 		cities
 	);
 
-	cities.erase(startCity);
+	cities.erase(start_city);
 
 	std::cout << std::endl;
 	std::cout << "Veuillez choisir une destination:" << std::endl;
-	const auto endCity = utils::menu::chooseCity(
+	const auto end_city = utils::menu::chooseCity(
 		std::cout,
 		std::cin,
 		cities
 	);
 
-	std::cout << "=== " << startCity << " -> " << endCity << " ===" << std::endl;
+	std::cout << "=== " << start_city << " -> " << end_city << " ===" << std::endl;
 
 	// === ROAD ===
-	const auto roadPath = utils::pathfinding::BFS(
+	const auto road_path = utils::pathfinding::BFS(
 		this->_graph,
-		startCity,
-		endCity,
+		start_city,
+		end_city,
 		ROAD
 	);
-	const auto roadActionCount = roadPath.size() - 1;
+	const auto roadActionCount = road_path.size() - 1;
 
 	std::cout << "[ROUTE] Terrestre uniquement (" << roadActionCount << " actions):" << std::endl;
-	utils::menu::displayPath(std::cout, roadPath, this->_graph);
+	utils::menu::displayPath(std::cout, road_path, this->_graph);
 
 	// === ROAD + TRAIN ===
-	const auto roadAndRailsPath = utils::pathfinding::BFS(
+	const auto road_and_rails_path = utils::pathfinding::BFS(
 		this->_graph,
-		startCity,
-		endCity,
+		start_city,
+		end_city,
 		ROAD | TRAIN
 	);
-	const auto roadAndRailsActionCount = roadAndRailsPath.size() - 1;
+	const auto road_and_rails_action_count = road_and_rails_path.size() - 1;
 
 	std::cout << std::endl;
-	std::cout << "[ROUTE + TRAIN] Terrestre + Rails (" << roadAndRailsActionCount << " actions):" << std::endl;
-	utils::menu::displayPath(std::cout, roadAndRailsPath, this->_graph);
-	std::cout << "=> Gain de " + std::to_string(roadActionCount - roadAndRailsActionCount) <<
+	std::cout << "[ROUTE + TRAIN] Terrestre + Rails (" << road_and_rails_action_count << " actions):" << std::endl;
+	utils::menu::displayPath(std::cout, road_and_rails_path, this->_graph);
+	std::cout << "=> Gain de " + std::to_string(roadActionCount - road_and_rails_action_count) <<
 		" action(s) grâce aux rails!" << std::endl;
 
 	// === ALL ===
-	const auto roadAndRailsAndBoatsPath = utils::pathfinding::BFS(
+	const auto road_and_rails_and_boats_path = utils::pathfinding::BFS(
 		this->_graph,
-		startCity,
-		endCity,
+		start_city,
+		end_city,
 		ROAD | TRAIN | BOAT
 	);
-	const auto roadAndRailsAndBoatsActionCount = roadAndRailsAndBoatsPath.size() - 1;
+	const auto road_and_rails_and_boats_action_count = road_and_rails_and_boats_path.size() - 1;
 
 	std::cout << std::endl;
-	std::cout << "[TOUT] Terrestre + Rails + Mer (" << roadAndRailsAndBoatsActionCount << " actions):" << std::endl;
-	utils::menu::displayPath(std::cout, roadAndRailsAndBoatsPath, this->_graph);
-	std::cout << "=> Gain de " + std::to_string(roadActionCount - roadAndRailsAndBoatsActionCount) <<
+	std::cout << "[TOUT] Terrestre + Rails + Mer (" << road_and_rails_and_boats_action_count << " actions):" <<
+		std::endl;
+	utils::menu::displayPath(std::cout, road_and_rails_and_boats_path, this->_graph);
+	std::cout << "=> Gain de " + std::to_string(roadActionCount - road_and_rails_and_boats_action_count) <<
 		" action(s) grâce au total!" << std::endl;
 }
 
@@ -188,18 +188,18 @@ void Plateau::afficherEtat()
 	std::cout << "Eclosion : " << this->_currentEclosionCount << " / " << MAX_ECLOSION_COUNT << std::endl;
 	std::cout << "Rails    : " << this->_graph.getRailsCount() << " / " << MAX_RAIL_COUNT << std::endl;
 
-	for (auto cityName : this->_graph.getCityNames())
+	for (auto city_name : this->_graph.getCityNames())
 	{
-		const auto city = this->_graph.getCity(cityName);
+		const auto city = this->_graph.getCity(city_name);
 
 		if (city.totalCubes() == 0)
 			continue;
-		
+
 		std::cout << city.nom << ":";
 
 		for (const auto color : city.cubes | std::views::keys)
 			std::cout << " " << utils::cities::getColorName(color) << " x" << city.cubesDe(color);
-		
+
 		std::cout << std::endl;
 	}
 }

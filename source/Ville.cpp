@@ -2,7 +2,7 @@
 
 #include <ranges>
 
-Ville::Ville()
+Ville::Ville() : Ville("", "", false)
 {
 }
 

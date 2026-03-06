@@ -42,44 +42,44 @@ namespace utils::cities
 	/// Starts to solve the eclosions from the given city
 	inline std::size_t solveEclosion(CityGraph& graph, const Ville& city, std::size_t currentEclosionCount)
 	{
-		std::set<std::string> infectedCities;
-		std::queue<std::string> citiesToProcess;
-		citiesToProcess.push(city.nom);
-		infectedCities.insert(city.nom);
+		std::set<std::string> infected_cities;
+		std::queue<std::string> cities_to_process;
+		cities_to_process.push(city.nom);
+		infected_cities.insert(city.nom);
 		
-		while (!citiesToProcess.empty())
+		while (!cities_to_process.empty())
 		{
-			const auto& currentName = citiesToProcess.front();
-			citiesToProcess.pop();
+			const auto& current_name = cities_to_process.front();
+			cities_to_process.pop();
 			
-			const auto& currentCity = graph.getCity(currentName);
+			const auto& current_city = graph.getCity(current_name);
 			
 			currentEclosionCount++;
-			std::cout << "** ECLOSION #" << currentEclosionCount << " a " << currentCity.nom << " (" << getColorName(currentCity.couleur) << ")" << std::endl;
+			std::cout << "** ECLOSION #" << currentEclosionCount << " a " << current_city.nom << " (" << getColorName(current_city.couleur) << ")" << std::endl;
 
-			for (const auto& neighbor : graph.getNeighbors(currentCity.nom, ROAD))
+			for (const auto& neighbor : graph.getNeighbors(current_city.nom, ROAD))
 			{
 				std::cout << "|-- " << neighbor << " : ";
 				
-				if (infectedCities.contains(neighbor))
+				if (infected_cities.contains(neighbor))
 				{
 					std::cout << "ignore (deja en eclosion)" << std::endl;
 					continue;
 				}
 				
-				auto& neighborCity = graph.getCity(neighbor);
+				auto& neighbor_city = graph.getCity(neighbor);
 				
-				if (neighborCity.totalCubes() >= 3)
+				if (neighbor_city.totalCubes() >= 3)
 				{
-					std::cout << neighborCity.totalCubes() << " cubes total -> eclosion en chaine !" << std::endl;
-					infectedCities.insert(neighbor);
-					citiesToProcess.push(neighbor);
+					std::cout << neighbor_city.totalCubes() << " cubes total -> eclosion en chaine !" << std::endl;
+					infected_cities.insert(neighbor);
+					cities_to_process.push(neighbor);
 					continue;
 				}
 					
-				std::cout << neighborCity.totalCubes() << " -> ";
-				addBlock(currentCity, neighborCity);
-				std::cout << neighborCity.totalCubes() << std::endl;
+				std::cout << neighbor_city.totalCubes() << " -> ";
+				addBlock(current_city, neighbor_city);
+				std::cout << neighbor_city.totalCubes() << std::endl;
 			}
 		}
 		

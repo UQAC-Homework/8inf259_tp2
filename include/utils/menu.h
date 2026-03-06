@@ -47,14 +47,14 @@ namespace utils::menu
 		const std::set<std::string>& cities
 	)
 	{
-		std::vector<std::string> cityNames;
+		std::vector<std::string> city_names;
 		std::vector<std::tuple<int, std::string>> options;
 
 		int index = 1;
 
 		for (const auto& name : cities)
 		{
-			cityNames.push_back(name);
+			city_names.push_back(name);
 			options.emplace_back(index, name);
 			index++;
 		}
@@ -63,13 +63,13 @@ namespace utils::menu
 		{
 			const int choice = askChoice(output, input, options);
 
-			if (choice <= 0 || choice > cityNames.size())
+			if (choice <= 0 || choice > city_names.size())
 			{
 				output << "Choix invalide." << std::endl;
 				continue;
 			}
 
-			return cityNames[choice - 1];
+			return city_names[choice - 1];
 		}
 	}
 
