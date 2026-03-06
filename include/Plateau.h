@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Graphs/CityGraph.h"
+#include "CityGraph.h"
 
 class Plateau
 {

@@ -1,8 +1,8 @@
 #ifndef INC_8INF259_TP2_CITYGRAPH_H
 #define INC_8INF259_TP2_CITYGRAPH_H
-#include "../TransportMode.h"
-#include "../Ville.h"
-#include "../ds/Graph.h"
+#include "TransportMode.h"
+#include "Ville.h"
+#include "ds/Graph.h"
 
 /// Graph that represents a network of cities
 class CityGraph

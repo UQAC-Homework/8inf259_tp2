@@ -5,7 +5,7 @@
 #include <iostream>
 #include <ranges>
 
-#include "../include/Graphs/CityGraph.h"
+#include "../include/CityGraph.h"
 #include "../include/utils/cities.h"
 #include "../include/utils/graph.h"
 #include "../include/utils/menu.h"

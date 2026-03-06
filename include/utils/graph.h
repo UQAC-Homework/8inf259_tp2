@@ -5,7 +5,7 @@
 #include <vector>
 
 #include "string.h"
-#include "../Graphs/CityGraph.h"
+#include "../CityGraph.h"
 
 namespace utils::graph
 {

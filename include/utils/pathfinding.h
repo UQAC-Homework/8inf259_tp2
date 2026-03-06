@@ -4,7 +4,7 @@
 #include <string>
 #include <vector>
 
-#include "../Graphs/CityGraph.h"
+#include "../CityGraph.h"
 
 namespace utils::pathfinding
 {

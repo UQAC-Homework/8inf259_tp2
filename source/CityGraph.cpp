@@ -1,5 +1,5 @@
-#include "../../include/Graphs/CityGraph.h"
-#include "../../include/Ville.h"
+#include "../include/CityGraph.h"
+#include "../include/Ville.h"
 
 #include <cassert>
 #include <fstream>
