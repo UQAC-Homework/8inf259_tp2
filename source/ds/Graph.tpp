@@ -58,7 +58,7 @@ namespace ds
 	}
 
 	template <typename Node>
-	bool Graph<Node>::areConnected(const int from, const int to) const
+	bool Graph<Node>::hasEdge(const int from, const int to) const
 	{
 		if (!this->edges.contains(from))
 			return false;

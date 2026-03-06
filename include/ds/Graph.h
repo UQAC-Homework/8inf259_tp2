@@ -31,8 +31,8 @@ namespace ds
 		/// Removes the edge between the given nodes
 		void removeEdge(int from, int to);
 
-		/// Checks if the given nodes are connected
-		[[nodiscard]] bool areConnected(int from, int to) const;
+		/// Checks if the given nodes share an edge
+		[[nodiscard]] bool hasEdge(int from, int to) const;
 
 		/// Gets the edges connected to the given node
 		[[nodiscard]] const std::set<int>& getEdges(int node) const;

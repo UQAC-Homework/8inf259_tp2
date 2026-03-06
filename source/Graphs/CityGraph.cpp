@@ -42,7 +42,7 @@ void CityGraph::addRoad(const std::string& from, const std::string& to)
 	const auto fromID = this->nameToId.at(from);
 	const auto toID = this->nameToId.at(to);
 
-	if (this->_graph.areConnected(fromID, toID))
+	if (this->_graph.hasEdge(fromID, toID))
 		return;
 
 	this->_graph.addEdge(fromID, toID);
@@ -192,7 +192,7 @@ TransportMode CityGraph::getAvailableTransportModes(const std::string& from, con
 
 	TransportMode transportModes = NONE;
 
-	if (this->_graph.areConnected(fromID, toID))
+	if (this->_graph.hasEdge(fromID, toID))
 		transportModes = transportModes | ROAD;
 
 	if (this->railCities.contains(fromID) && this->getReachableByTrain(fromID).contains(toID))
