@@ -9,6 +9,10 @@ namespace utils::cities
 	/// Adds a block from the given city to the given city
 	inline void addBlock(const Ville& source, Ville& target)
 	{
+		// Total count cannot go beyond 3
+		if (target.totalCubes() >= 3)
+			return;
+
 		const std::string color = source.couleur;
 		
 		if (!target.cubes.contains(color))
@@ -45,15 +49,15 @@ namespace utils::cities
 		
 		while (!citiesToProcess.empty())
 		{
-			const auto currentName = citiesToProcess.front();
+			const auto& currentName = citiesToProcess.front();
 			citiesToProcess.pop();
 			
-			auto currentCity = graph.getCity(currentName);
+			const auto& currentCity = graph.getCity(currentName);
 			
 			currentEclosionCount++;
 			std::cout << "** ECLOSION #" << currentEclosionCount << " a " << currentCity.nom << " (" << getColorName(currentCity.couleur) << ")" << std::endl;
 
-			for (auto neighbor : graph.getNeighbors(currentCity.nom, ROAD))
+			for (const auto& neighbor : graph.getNeighbors(currentCity.nom, ROAD))
 			{
 				std::cout << "|-- " << neighbor << " : ";
 				

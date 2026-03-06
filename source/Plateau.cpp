@@ -56,7 +56,7 @@ void Plateau::actionPlacerTroisCubes()
 	);
 	auto& city = this->_graph.getCity(cityName);
 
-	for (int i = 3 - city.cubesDe(city.couleur); i > 0; --i)
+	for (int i = 0; i < 3; ++i)
 		utils::cities::addBlock(city, city);
 }
 
