@@ -14,6 +14,24 @@ namespace utils::cities
 		
 		target.cubes[color]++;
 	}
+	
+	/// Gets the display name of the color
+	inline std::string getColorName(const std::string& color)
+	{
+		if (color == "blue")
+			return "Choléra";
+		
+		if (color == "red")
+			return "Typhus";
+		
+		if (color == "yellow")
+			return "Fièvre jaune";
+		
+		if (color == "black")
+			return "Malaria";
+		
+		return color;
+	}
 }
 
 #endif //INC_8INF259_TP2_CITIES_H

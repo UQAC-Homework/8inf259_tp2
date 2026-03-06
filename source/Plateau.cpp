@@ -173,7 +173,7 @@ void Plateau::afficherEtat()
 
 		for (const auto color : city.cubes | std::views::keys)
 		{
-			std::cout << "\t" << color << " x" << city.cubesDe(color) << std::endl;
+			std::cout << "\t" << utils::cities::getColorName(color) << " x" << city.cubesDe(color) << std::endl;
 		}
 		
 		std::cout << std::endl;
