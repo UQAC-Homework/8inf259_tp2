@@ -3,8 +3,10 @@
 #include <filesystem>
 #include <fstream>
 #include <iostream>
+#include <ranges>
 
 #include "../include/Graphs/CityGraph.h"
+#include "../include/utils/cities.h"
 #include "../include/utils/graph.h"
 #include "../include/utils/menu.h"
 #include "../include/utils/pathfinding.h"
@@ -40,19 +42,21 @@ bool Plateau::charger(const std::string& fichier)
 void Plateau::actionPlacerTroisCubes()
 {
 	std::cout << "Veuillez choisir une ville à infecter:" << std::endl;
-	const auto city = utils::menu::chooseCity(
+	const auto cityName = utils::menu::chooseCity(
 		std::cout,
 		std::cin,
 		this->_graph.getCityNames()
 	);
+	auto& city = this->_graph.getCity(cityName);
 
-	throw std::logic_error("Not Implemented");
+	for (int i = 3 - city.cubesDe(city.couleur); i > 0; --i)
+		utils::cities::addBlock(city, city);
 }
 
 void Plateau::actionInfecter()
 {
 	std::cout << "Veuillez choisir une ville à infecter:" << std::endl;
-	const auto city = utils::menu::chooseCity(
+	const auto cityName = utils::menu::chooseCity(
 		std::cout,
 		std::cin,
 		this->_graph.getCityNames()
@@ -161,7 +165,19 @@ void Plateau::actionPlusCourtChemin()
 
 void Plateau::afficherEtat()
 {
-	throw std::logic_error("Not Implemented");
+	for (auto cityName : this->_graph.getCityNames())
+	{
+		const auto city = this->_graph.getCity(cityName);
+		
+		std::cout << city.nom << " (" << city.totalCubes() << "): " << std::endl;
+
+		for (const auto color : city.cubes | std::views::keys)
+		{
+			std::cout << "\t" << color << " x" << city.cubesDe(color) << std::endl;
+		}
+		
+		std::cout << std::endl;
+	}
 }
 
 void Plateau::menu()

@@ -19,4 +19,5 @@ add_executable(8inf259_tp2 main.cpp
         include/utils/graph.h
         include/TransportMode.h
         source/TransportMode.cpp
+        include/utils/cities.h
 )

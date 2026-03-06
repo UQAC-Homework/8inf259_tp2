@@ -13,14 +13,6 @@ Ville::Ville(const std::string& nom, const std::string& couleur, bool port)
 	this->port = port;
 }
 
-void Ville::addCube(const std::string& color)
-{
-	if (this->cubes.contains(color))
-		this->cubes[color]++;
-	else
-		this->cubes[color] = 1;
-}
-
 int Ville::totalCubes() const
 {
 	int total = 0;
