@@ -45,6 +45,12 @@ public:
 	/// Gets all the cities by name
 	[[nodiscard]] std::set<std::string> getCityNames() const;
 
+	/// Gets the city with the given name
+	[[nodiscard]] const Ville& getCity(const std::string& name) const;
+	
+	/// Gets the city with the given name
+	[[nodiscard]] Ville& getCity(const std::string& name);
+
 	/// Gets all the cities neighboring the given city 
 	[[nodiscard]] std::set<std::string> getNeighbors(const std::string& city, TransportMode allowedModes) const;
 

@@ -130,6 +130,18 @@ std::set<std::string> CityGraph::getCityNames() const
 	return names;
 }
 
+const Ville& CityGraph::getCity(const std::string& name) const
+{
+	const int cityId = this->nameToId.at(name);
+	return this->_graph.getNode(cityId);
+}
+
+Ville& CityGraph::getCity(const std::string& name)
+{
+	const int cityId = this->nameToId.at(name);
+	return this->_graph.getNode(cityId);
+}
+
 std::set<std::string> CityGraph::getNeighbors(const std::string& city, const TransportMode allowedModes) const
 {
 	if (allowedModes == NONE)
