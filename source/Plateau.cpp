@@ -165,16 +165,19 @@ void Plateau::actionPlusCourtChemin()
 
 void Plateau::afficherEtat()
 {
+	std::cout << "=== Etat du Plateau ===" << std::endl;
+
 	for (auto cityName : this->_graph.getCityNames())
 	{
 		const auto city = this->_graph.getCity(cityName);
+
+		if (city.totalCubes() == 0)
+			continue;
 		
-		std::cout << city.nom << " (" << city.totalCubes() << "): " << std::endl;
+		std::cout << city.nom << ":";
 
 		for (const auto color : city.cubes | std::views::keys)
-		{
-			std::cout << "\t" << utils::cities::getColorName(color) << " x" << city.cubesDe(color) << std::endl;
-		}
+			std::cout << " " << utils::cities::getColorName(color) << " x" << city.cubesDe(color);
 		
 		std::cout << std::endl;
 	}
