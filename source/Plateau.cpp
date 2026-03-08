@@ -49,15 +49,15 @@ bool Plateau::charger(const std::string& fichier)
 void Plateau::actionPlacerTroisCubes()
 {
 	std::cout << "Veuillez choisir une ville à infecter:" << std::endl;
-	const auto cityName = utils::menu::chooseCity(
+	const auto city_name = utils::menu::chooseCity(
 		std::cout,
 		std::cin,
 		this->_graph.getCityNames()
 	);
-	auto& city = this->_graph.getCity(cityName);
+	auto& city = this->_graph.getCity(city_name);
 
 	for (int i = 0; i < 3; ++i)
-		utils::cities::addBlock(city, city);
+		utils::cities::addBlock(city, city.couleur);
 }
 
 void Plateau::actionInfecter()
@@ -80,7 +80,7 @@ void Plateau::actionInfecter()
 		);
 	}
 	else
-		utils::cities::addBlock(city, city);
+		utils::cities::addBlock(city, city.couleur);
 }
 
 void Plateau::actionPlacerRail()
@@ -145,9 +145,9 @@ void Plateau::actionPlusCourtChemin()
 		end_city,
 		ROAD
 	);
-	const auto roadActionCount = road_path.size() - 1;
+	const auto road_action_count = road_path.size() - 1;
 
-	std::cout << "[ROUTE] Terrestre uniquement (" << roadActionCount << " actions):" << std::endl;
+	std::cout << "[ROUTE] Terrestre uniquement (" << road_action_count << " actions):" << std::endl;
 	utils::menu::displayPath(std::cout, road_path, this->_graph);
 
 	// === ROAD + TRAIN ===
@@ -162,7 +162,7 @@ void Plateau::actionPlusCourtChemin()
 	std::cout << std::endl;
 	std::cout << "[ROUTE + TRAIN] Terrestre + Rails (" << road_and_rails_action_count << " actions):" << std::endl;
 	utils::menu::displayPath(std::cout, road_and_rails_path, this->_graph);
-	std::cout << "=> Gain de " + std::to_string(roadActionCount - road_and_rails_action_count) <<
+	std::cout << "=> Gain de " + std::to_string(road_action_count - road_and_rails_action_count) <<
 		" action(s) grâce aux rails!" << std::endl;
 
 	// === ALL ===
@@ -178,7 +178,7 @@ void Plateau::actionPlusCourtChemin()
 	std::cout << "[TOUT] Terrestre + Rails + Mer (" << road_and_rails_and_boats_action_count << " actions):" <<
 		std::endl;
 	utils::menu::displayPath(std::cout, road_and_rails_and_boats_path, this->_graph);
-	std::cout << "=> Gain de " + std::to_string(roadActionCount - road_and_rails_and_boats_action_count) <<
+	std::cout << "=> Gain de " + std::to_string(road_action_count - road_and_rails_and_boats_action_count) <<
 		" action(s) grâce au total!" << std::endl;
 }
 
@@ -188,7 +188,7 @@ void Plateau::afficherEtat()
 	std::cout << "Eclosion : " << this->_currentEclosionCount << " / " << MAX_ECLOSION_COUNT << std::endl;
 	std::cout << "Rails    : " << this->_graph.getRailsCount() << " / " << MAX_RAIL_COUNT << std::endl;
 
-	for (auto city_name : this->_graph.getCityNames())
+	for (const auto& city_name : this->_graph.getCityNames())
 	{
 		const auto city = this->_graph.getCity(city_name);
 
@@ -197,7 +197,7 @@ void Plateau::afficherEtat()
 
 		std::cout << city.nom << ":";
 
-		for (const auto color : city.cubes | std::views::keys)
+		for (const auto& color : city.cubes | std::views::keys)
 			std::cout << " " << utils::cities::getColorName(color) << " x" << city.cubesDe(color);
 
 		std::cout << std::endl;

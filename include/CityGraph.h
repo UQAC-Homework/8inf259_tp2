@@ -38,7 +38,7 @@ public:
 
 	/// Gets the amount of cities on the graph
 	[[nodiscard]] std::size_t getCityCount() const;
-	
+
 	/// Gets the amount of rails on the graph
 	[[nodiscard]] std::size_t getRailsCount() const;
 
@@ -47,11 +47,11 @@ public:
 
 	/// Gets the city with the given name
 	[[nodiscard]] const Ville& getCity(const std::string& name) const;
-	
+
 	/// Gets the city with the given name
 	[[nodiscard]] Ville& getCity(const std::string& name);
 
-	/// Gets all the cities neighboring the given city 
+	/// Gets all the cities neighboring the given city
 	[[nodiscard]] std::set<std::string> getNeighbors(const std::string& city, TransportMode allowed_modes) const;
 
 	/// Gets all the connections available between the given cities
